@@ -21,8 +21,8 @@ namespace PurchaseOrder.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IEnumerable<Product> Get()
+        [HttpGet (Name = "SearchProducts")]
+        public IEnumerable<Product> Get(string searchString)
         {
             var rng = new Random();
             return null;
