@@ -61,6 +61,15 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding Product {0} to Supplier {1}.
+        /// </summary>
+        internal static string AddProductToSupplierLogMessage {
+            get {
+                return ResourceManager.GetString("AddProductToSupplierLogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server=.;Database=HarroPODB;Trusted_Connection=True;.
         /// </summary>
         internal static string ConnectionString {
@@ -151,6 +160,24 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string ProductDescriptionParameterName {
+            get {
+                return ResourceManager.GetString("ProductDescriptionParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price.
+        /// </summary>
+        internal static string ProductPriceParameterName {
+            get {
+                return ResourceManager.GetString("ProductPriceParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to searchDescription.
         /// </summary>
         internal static string ProductSeachParameterName {
@@ -210,6 +237,15 @@ namespace PurchaseOrder.Properties {
         internal static string SupplierDoesNotExistErrorMessage {
             get {
                 return ResourceManager.GetString("SupplierDoesNotExistErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SupplierID.
+        /// </summary>
+        internal static string SupplierIdParameterName {
+            get {
+                return ResourceManager.GetString("SupplierIdParameterName", resourceCulture);
             }
         }
         

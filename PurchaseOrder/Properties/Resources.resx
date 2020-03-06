@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddProductToSupplierLogMessage" xml:space="preserve">
+    <value>Adding Product {0} to Supplier {1}</value>
+    <comment>Logger message for adding a product to a supplier</comment>
+  </data>
   <data name="ConnectionString" xml:space="preserve">
     <value>Server=.;Database=HarroPODB;Trusted_Connection=True;</value>
     <comment>The application default connection string</comment>
@@ -152,6 +156,14 @@
   <data name="ProductCodeParameterName" xml:space="preserve">
     <value>ProductCode</value>
   </data>
+  <data name="ProductDescriptionParameterName" xml:space="preserve">
+    <value>Description</value>
+    <comment>The name of the product description parameter</comment>
+  </data>
+  <data name="ProductPriceParameterName" xml:space="preserve">
+    <value>Price</value>
+    <comment>The name of the Product Price Parameter</comment>
+  </data>
   <data name="ProductSeachParameterName" xml:space="preserve">
     <value>searchDescription</value>
     <comment>The parameter passed into the Product Search Procedure</comment>
@@ -177,11 +189,15 @@
   <data name="SupplierDoesNotExistErrorMessage" xml:space="preserve">
     <value>The supplier does not exist in the database</value>
   </data>
+  <data name="SupplierIdParameterName" xml:space="preserve">
+    <value>SupplierID</value>
+    <comment>The name of the supplier ID parameter</comment>
+  </data>
   <data name="SupplierSearchParameterName" xml:space="preserve">
     <value>s</value>
   </data>
   <data name="SupplierSearchProcName" xml:space="preserve">
     <value>SearchSupplierByName</value>
-    <comment>SearchSupplierByName</comment>
+    <comment>Search Supplier by name stored procedure</comment>
   </data>
 </root>

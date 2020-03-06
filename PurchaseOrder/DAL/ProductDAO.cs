@@ -15,7 +15,7 @@ namespace PurchaseOrder.DAL
 
         }
 
-        public  async Task<List<Product>> SearchProducts(string searchString)
+        public async Task<List<Product>> SearchProducts(string searchString)
         {
             var products = new List<Product>();
             var searchParam = GetParameter(Resources.ProductSeachParameterName, searchString);
@@ -37,6 +37,22 @@ namespace PurchaseOrder.DAL
 
             await reader.CloseAsync();
             return products;
+        }
+
+        internal async Task<Guid> AddProductToSupplier(Product product)
+        {
+            var descriptionParameter = GetParameter(Resources.ProductDescriptionParameterName, product.Description);
+            var productCodeParameter = GetParameter(Resources.ProductCodeParameterName, product.ProductCode);
+            var supplierIdParameter = GetParameter(Resources.SupplierIdParameterName, product.Supplier.Id);
+            var priceParameter = GetParameter(Resources.ProductPriceParameterName, product.Price);
+            var reader = GetDataReader(Resources.SearchProductsProc, new List<DbParameter> { productCodeParameter, descriptionParameter, priceParameter, supplierIdParameter });
+
+            if (reader.HasRows)
+                await reader.ReadAsync();
+
+            var resultantId = reader.GetGuid(0);
+            await reader.CloseAsync();
+            return resultantId;
         }
     }
 }

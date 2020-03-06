@@ -29,5 +29,13 @@ namespace PurchaseOrder.Controllers
             var products = await _dal.SearchProducts(searchString);
             return products;
         }
+
+        [HttpPost (Name = "AddProductToSupplier")]
+        public async Task<Guid> AddProductToSupplier(Product product)
+        {
+            _logger.LogInformation(Resources.AddProductToSupplierLogMessage, product.ProductCode, product.Supplier.Id);
+            Guid newId = await _dal.AddProductToSupplier(product);
+            return newId;
+        }
     }
 }
