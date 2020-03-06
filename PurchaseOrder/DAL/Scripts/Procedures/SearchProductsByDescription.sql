@@ -15,10 +15,11 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		Paul Harrington
--- Create date: 05 March 2020
--- Description:	Search for Products by Product Description
+-- Create date: 06 March 2020
+-- Description:	Searches for products by description
 -- =============================================
-IF  EXISTS (SELECT 1 FROM sys.objects WHERE [name] = 'SearchProductsByDescription' AND [type] = 'P')
+
+IF EXISTS (SELECT (1) FROM sys.sysobjects WHERE [Name] = 'SearchProductsByDescription' AND [type] = 'P'
 BEGIN
 	DROP PROCEDURE SearchProductsByDescription
 END
@@ -26,7 +27,8 @@ GO
 
 CREATE PROCEDURE SearchProductsByDescription
 	-- Add the parameters for the stored procedure here
-	@s nvarchar(64)
+	@searchDescription nvarchar(256),
+	@isDeleted BIT
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -34,8 +36,9 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [ID], [ProductCode], [Description], [Price]  FROM Product
-	WHERE Description LIKE '%' + @s + '%'
-	AND IsDeleted = 0
+	SELECT [ID], [ProductCode], [Description], [Price]
+	FROM [Product]
+	WHERE [Description] LIKE '%' + @searchDescription + '%'
+	AND [IsDeleted] = @isDeleted
 END
 GO

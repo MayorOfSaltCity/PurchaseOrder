@@ -152,9 +152,17 @@
   <data name="ProductCodeParameterName" xml:space="preserve">
     <value>ProductCode</value>
   </data>
+  <data name="ProductSeachParameterName" xml:space="preserve">
+    <value>searchDescription</value>
+    <comment>The parameter passed into the Product Search Procedure</comment>
+  </data>
   <data name="SearchProductsLogMessage" xml:space="preserve">
     <value>Searching for products with search string {0}</value>
     <comment>The log entry for searching for products</comment>
+  </data>
+  <data name="SearchProductsProc" xml:space="preserve">
+    <value>SearchProductsByDescription</value>
+    <comment>The name of the product search stored procedure</comment>
   </data>
   <data name="String" xml:space="preserve">
     <value>SupplierSearchParameterName</value>

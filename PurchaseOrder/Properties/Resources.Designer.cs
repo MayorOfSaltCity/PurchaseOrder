@@ -151,11 +151,29 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to searchDescription.
+        /// </summary>
+        internal static string ProductSeachParameterName {
+            get {
+                return ResourceManager.GetString("ProductSeachParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Searching for products with search string {0}.
         /// </summary>
         internal static string SearchProductsLogMessage {
             get {
                 return ResourceManager.GetString("SearchProductsLogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SearchProductsByDescription.
+        /// </summary>
+        internal static string SearchProductsProc {
+            get {
+                return ResourceManager.GetString("SearchProductsProc", resourceCulture);
             }
         }
         
