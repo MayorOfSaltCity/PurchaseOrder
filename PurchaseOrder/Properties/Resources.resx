@@ -129,6 +129,12 @@
     <value>CreateSupplier</value>
     <comment>The stored procedure to create a supplier</comment>
   </data>
+  <data name="CreatingSupplierLogMessage" xml:space="preserve">
+    <value>Creating Supplier In Database with Supplier Code {0}</value>
+  </data>
+  <data name="GetSupplierByCodeProc" xml:space="preserve">
+    <value>GetSupplierBySupplierCode</value>
+  </data>
   <data name="GetSupplierByIdProc" xml:space="preserve">
     <value>GetSupplierByID</value>
   </data>
@@ -151,7 +157,7 @@
   </data>
   <data name="SupplierAlreadyExistsError" xml:space="preserve">
     <value>Cannot create supplier Supplier already exists</value>
-    <comment>AN error message hen a supplier cannod be created because the supplier code is in use</comment>
+    <comment>An error message hen a supplier cannod be created because the supplier code is in use</comment>
   </data>
   <data name="SupplierCodeParameterName" xml:space="preserve">
     <value>SupplierCode</value>

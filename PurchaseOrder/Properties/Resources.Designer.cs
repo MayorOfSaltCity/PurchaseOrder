@@ -88,6 +88,24 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating Supplier In Database with Supplier Code {0}.
+        /// </summary>
+        internal static string CreatingSupplierLogMessage {
+            get {
+                return ResourceManager.GetString("CreatingSupplierLogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetSupplierBySupplierCode.
+        /// </summary>
+        internal static string GetSupplierByCodeProc {
+            get {
+                return ResourceManager.GetString("GetSupplierByCodeProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetSupplierByID.
         /// </summary>
         internal static string GetSupplierByIdProc {

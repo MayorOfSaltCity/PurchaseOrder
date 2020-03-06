@@ -20,7 +20,7 @@ namespace PurchaseOrder.DAL
         /// </summary>
         /// <param name="supplier">The supplier data to populate to the database</param>
         /// <returns></returns>
-        public Guid CreateSupplier(Supplier supplier)
+        public async Task<Guid> CreateSupplier(Supplier supplier)
         {
 
             
@@ -35,21 +35,51 @@ namespace PurchaseOrder.DAL
             if (!dr.HasRows)
                 throw new Exception("Failed to create supplier");
 
+            await dr.ReadAsync();
             var rs = dr.GetGuid(0);
+            await dr.CloseAsync();
             return rs;
         }
 
+        /// <summary>
+        /// Gets the supplier by the Supplier Guid
+        /// </summary>
+        /// <param name="supplierId">The guid to get the supplier by</param>
+        /// <returns>A Supplier Data Object</returns>
         public async Task<Supplier> GetSupplierByID(Guid supplierId)
         {
             var rs = new Supplier();
             var sIdParam = GetParameter(Resources.IdParameter, supplierId);
             var reader = GetDataReader(Resources.GetSupplierByIdProc, new List<DbParameter> { sIdParam });
+            if (!reader.HasRows)
+                throw new Exception("Supplier Does not exist");
 
             await reader.ReadAsync();
             rs.Id = reader.GetGuid(0);
             rs.SuppierCode = reader.GetString(1);
             rs.Name = reader.GetString(2);
 
+            return rs;
+        }
+
+        /// <summary>
+        /// Gets a supplier by the Supplier Code
+        /// </summary>
+        /// <param name="supplierCode">The supplier code</param>
+        /// <returns>A supplier code object</returns>
+        public async Task<Supplier> GetSupplierByCode(string supplierCode)
+        {
+            var rs = new Supplier();
+            var sIdParam = GetParameter(Resources.SupplierCodeParameterName, supplierCode);
+            var reader = GetDataReader(Resources.GetSupplierByCodeProc, new List<DbParameter> { sIdParam });
+            if (!reader.HasRows)
+                throw new Exception("Supplier Does not exist");
+
+            await reader.ReadAsync();
+            rs.Id = reader.GetGuid(0);
+            rs.SuppierCode = reader.GetString(1);
+            rs.Name = reader.GetString(2);
+            await reader.CloseAsync();
             return rs;
         }
 

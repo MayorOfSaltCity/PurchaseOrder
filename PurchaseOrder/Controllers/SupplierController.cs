@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PurchaseOrder.DAL;
 using PurchaseOrder.Models;
-
+using PurchaseOrder.Properties;
 
 namespace PurchaseOrder.Controllers
 {
@@ -34,8 +34,18 @@ namespace PurchaseOrder.Controllers
         [HttpPost(Name = "AddSupplier")]
         public async Task<Supplier> AddSupplier(Supplier supplier)
         {
-            var rSupplier = new Supplier();
-            return rSupplier;
+            _logger.LogInformation(Resources.CreatingSupplierLogMessage, supplier.SuppierCode);
+            var res = await _dal.CreateSupplier(supplier);
+            var dSupplier = await _dal.GetSupplierByID(res);
+            return dSupplier;
+        }
+
+        [HttpGet (Name = "GetSupplierByCode")]
+        public async Task<Supplier> GetSupplier(string supplierCode)
+        {
+            _logger.LogInformation(Resources.GetSupplierByCodeProc);
+            var supplier = await _dal.GetSupplierByCode(supplierCode);
+            return supplier;
         }
     }
 }
