@@ -26,8 +26,8 @@ GO
 CREATE PROCEDURE GetProductByProductCode
 	-- Add the parameters for the stored procedure here
 	@ProductCode nchar(64),
-	@IsDeleted bit = 0,
-	@FetchAll bit = 0
+	@IsDeleted bit = NULL,
+	@FetchAll bit = NULL
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -45,6 +45,6 @@ BEGIN
 		SELECT [ID], [ProductCode], [Description], [Price]
 		FROM Product
 		WHERE [ProductCode] = @ProductCode
-		AND [IsDeleted] = @IsDeleted
+		AND ([IsDeleted] = @IsDeleted OR (@IsDeleted IS NULL AND [IsDeleted] = 0))
 END
 GO

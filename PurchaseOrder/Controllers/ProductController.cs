@@ -45,5 +45,21 @@ namespace PurchaseOrder.Controllers
             bool deleted = await _dal.DeleteProduct(productId);
             return deleted;
         }
+
+        [HttpPut(Name = "UpdateProduct")]
+        public async Task<Guid> UpdateProduct(Product product)
+        {
+            _logger.LogInformation(Resources.DeletingProductbyId, product.Id);
+            Guid updateProduct = await _dal.UpdateProduct(product);
+            return updateProduct;
+        }
+
+        [HttpGet(Name = "GetProduct")]
+        public async Task<Product> GetProduct(Guid productId)
+        {
+            _logger.LogInformation(Resources.GetProductByProductIdLogMessage, productId);
+            Product product = await _dal.GetProductByProductId(productId);
+            return product;
+        }
     }
 }

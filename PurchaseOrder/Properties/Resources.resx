@@ -144,13 +144,23 @@
     <value>DeleteProductByProductId</value>
     <comment>Delete a product from use by the product ID</comment>
   </data>
+  <data name="DeletingProductbyId" xml:space="preserve">
+    <value>Deleting product: {0} by product ID</value>
+    <comment>Log message for deleting a product by product ID</comment>
+  </data>
   <data name="FetchAllParameterName" xml:space="preserve">
     <value>FetchAll</value>
     <comment>a flag indicating whether or not to fetch all records.</comment>
   </data>
+  <data name="GetProductByIdProc" xml:space="preserve">
+    <value>GetProductByID</value>
+  </data>
   <data name="GetProductByProductCodeProc" xml:space="preserve">
     <value>GetProductByProductCode</value>
     <comment>Get a product by the product code</comment>
+  </data>
+  <data name="GetProductByProductIdLogMessage" xml:space="preserve">
+    <value>Fetching Product {0} from database</value>
   </data>
   <data name="GetSupplierByCodeProc" xml:space="preserve">
     <value>GetSupplierBySupplierCode</value>
@@ -163,7 +173,7 @@
     <comment>The ID Parameter for data tables</comment>
   </data>
   <data name="IsDeletedParameterName" xml:space="preserve">
-    <value>IsDeleted</value>
+    <value>IncludeDeleted</value>
     <comment>A flag indicating whether or not to find deleted items</comment>
   </data>
   <data name="NameParameterName" xml:space="preserve">
@@ -189,8 +199,11 @@
     <comment>An error that occurs when trying to reuse an existing product code.</comment>
   </data>
   <data name="ProductIdParameterName" xml:space="preserve">
-    <value>ProductId</value>
+    <value>ProductID</value>
     <comment>The parameter name for the product ID</comment>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Product {0} not found</value>
   </data>
   <data name="ProductPriceParameterName" xml:space="preserve">
     <value>Price</value>
@@ -207,9 +220,6 @@
   <data name="SearchProductsProc" xml:space="preserve">
     <value>SearchProductsByDescription</value>
     <comment>The name of the product search stored procedure</comment>
-  </data>
-  <data name="String" xml:space="preserve">
-    <value>SupplierSearchParameterName</value>
   </data>
   <data name="SupplierAlreadyExistsError" xml:space="preserve">
     <value>Cannot create supplier Supplier {0} already exists</value>

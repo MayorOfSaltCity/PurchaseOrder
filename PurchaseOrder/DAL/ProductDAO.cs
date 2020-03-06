@@ -30,7 +30,7 @@ namespace PurchaseOrder.DAL
                         Id = reader.GetGuid(0),
                         ProductCode = reader.GetString(1),
                         Description = reader.GetString(2),
-                        Price = reader.GetDouble(4)
+                        Price = reader.GetDecimal(3)
                     };
 
                     products.Add(product);
@@ -39,6 +39,38 @@ namespace PurchaseOrder.DAL
             await reader.CloseAsync();
             return products;
         }
+
+        public async Task<Product> GetProductByProductId(Guid productId)
+        {
+            var products = new List<Product>();
+            var idParam = GetParameter(Resources.ProductIdParameterName, productId);
+            var reader = GetDataReader(Resources.GetProductByIdProc, new List<DbParameter> { idParam });
+
+            if (!reader.HasRows)
+                throw new Exception(Resources.ProductNotFound);
+            await reader.ReadAsync();
+
+            var product = new Product
+            {
+                Id = reader.GetGuid(0),
+                ProductCode = reader.GetString(1),
+                Description = reader.GetString(2),
+                Price = reader.GetDecimal(3),
+                Supplier = new Supplier
+                {
+                    Name = reader.GetString(4),
+                    SupplierCode = reader.GetString(5),
+                    Id = reader.GetGuid(6),
+                    CreatedDate = reader.GetDateTime(7)
+                }
+            };
+
+
+
+            await reader.CloseAsync();
+            return product;
+        }
+
 
         internal async Task<Guid> AddProductToSupplier(Product product)
         {
@@ -49,7 +81,7 @@ namespace PurchaseOrder.DAL
             if (productReader.HasRows)
             {
                 await productReader.CloseAsync();
-                throw new Exception(string.Format(Resources.ProductExistsErrorMessage, product.ProductCode)); 
+                throw new Exception(string.Format(Resources.ProductExistsErrorMessage, product.ProductCode));
             }
 
             await productReader.CloseAsync();
@@ -76,9 +108,8 @@ namespace PurchaseOrder.DAL
 
         internal async Task<Guid> UpdateProduct(Product product)
         {
-            var testCodeParam = GetParameter(Resources.ProductCodeParameterName, product.ProductCode);
-            var fetchAllParam = GetParameter(Resources.FetchAllParameterName, true);
-            var productReader = GetDataReader(Resources.GetProductByProductCodeProc, new List<DbParameter> { testCodeParam });
+            var tIdParam = GetParameter(Resources.ProductIdParameterName, product.Id);
+            var productReader = GetDataReader(Resources.GetProductByIdProc, new List<DbParameter> { tIdParam });
 
             if (!productReader.HasRows)
             {
@@ -87,11 +118,11 @@ namespace PurchaseOrder.DAL
             }
 
             await productReader.CloseAsync();
+            var idParam = GetParameter(Resources.IdParameter, product.Id);
             var descriptionParameter = GetParameter(Resources.ProductDescriptionParameterName, product.Description);
             var productCodeParameter = GetParameter(Resources.ProductCodeParameterName, product.ProductCode);
-            var supplierIdParameter = GetParameter(Resources.SupplierIdParameterName, product.Supplier.Id);
             var priceParameter = GetParameter(Resources.ProductPriceParameterName, product.Price);
-            var reader = GetDataReader(Resources.UpdateProductProc, new List<DbParameter> { productCodeParameter, descriptionParameter, priceParameter, supplierIdParameter });
+            var reader = GetDataReader(Resources.UpdateProductProc, new List<DbParameter> { idParam, productCodeParameter, descriptionParameter, priceParameter });
 
             if (reader.HasRows)
                 await reader.ReadAsync();

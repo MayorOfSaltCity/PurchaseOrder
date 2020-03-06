@@ -28,7 +28,7 @@ GO
 CREATE PROCEDURE SearchProductsByDescription
 	-- Add the parameters for the stored procedure here
 	@searchDescription nvarchar(256),
-	@isDeleted BIT
+	@IncludeDeleted BIT = NULL
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -39,6 +39,7 @@ BEGIN
 	SELECT [ID], [ProductCode], [Description], [Price]
 	FROM [Product]
 	WHERE [Description] LIKE '%' + @searchDescription + '%'
-	AND [IsDeleted] = @isDeleted
+	AND @IncludeDeleted = 1 OR [IsDeleted] = 0
+
 END
 GO

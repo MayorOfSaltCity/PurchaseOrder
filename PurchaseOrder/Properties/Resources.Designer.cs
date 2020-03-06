@@ -124,6 +124,15 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting product: {0} by product ID.
+        /// </summary>
+        internal static string DeletingProductbyId {
+            get {
+                return ResourceManager.GetString("DeletingProductbyId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FetchAll.
         /// </summary>
         internal static string FetchAllParameterName {
@@ -133,11 +142,29 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GetProductByID.
+        /// </summary>
+        internal static string GetProductByIdProc {
+            get {
+                return ResourceManager.GetString("GetProductByIdProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetProductByProductCode.
         /// </summary>
         internal static string GetProductByProductCodeProc {
             get {
                 return ResourceManager.GetString("GetProductByProductCodeProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fetching Product {0} from database.
+        /// </summary>
+        internal static string GetProductByProductIdLogMessage {
+            get {
+                return ResourceManager.GetString("GetProductByProductIdLogMessage", resourceCulture);
             }
         }
         
@@ -169,7 +196,7 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IsDeleted.
+        ///   Looks up a localized string similar to IncludeDeleted.
         /// </summary>
         internal static string IsDeletedParameterName {
             get {
@@ -232,11 +259,20 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ProductId.
+        ///   Looks up a localized string similar to ProductID.
         /// </summary>
         internal static string ProductIdParameterName {
             get {
                 return ResourceManager.GetString("ProductIdParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product {0} not found.
+        /// </summary>
+        internal static string ProductNotFound {
+            get {
+                return ResourceManager.GetString("ProductNotFound", resourceCulture);
             }
         }
         
@@ -273,15 +309,6 @@ namespace PurchaseOrder.Properties {
         internal static string SearchProductsProc {
             get {
                 return ResourceManager.GetString("SearchProductsProc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SupplierSearchParameterName.
-        /// </summary>
-        internal static string String {
-            get {
-                return ResourceManager.GetString("String", resourceCulture);
             }
         }
         

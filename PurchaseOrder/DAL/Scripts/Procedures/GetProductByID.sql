@@ -33,8 +33,16 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [ID], [ProductCode], [Description], [Price]
-	FROM Product
-	WHERE [ID] = @ProductID
+	SELECT	p.[ID], 
+			[ProductCode], 
+			[Description], 
+			[Price], 
+			s.[Name] as [SupplierName] , 
+			s.SupplierCode, 
+			s.Id as SupplierId,
+			s.CreatedDate as CreatedDate
+	FROM Product p
+	INNER JOIN Supplier s ON s.ID = p.SupplierID
+	WHERE p.[ID] = @ProductID
 END
 GO

@@ -27,11 +27,10 @@ GO
 
 CREATE PROCEDURE UpdateProductByProductID 
 	-- Add the parameters for the stored procedure here
-	@ProductID uniqueidentifier,
+	@Id uniqueidentifier,
 	@ProductCode nchar(64),
 	@Description nvarchar(256),
-	@Price decimal (18,4),
-	@SupplierID uniqueidentifier
+	@Price decimal (18,4)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -42,11 +41,13 @@ BEGIN
 	UPDATE Product SET 
 		IsDeleted = 1,
 		UpdatedDate = GetDate()
-	WHERE [ID] = @ProductID
+	WHERE [ID] = @Id
 	DECLARE @newProductID uniqueidentifier = NEWID()
+	DECLARE @SupplierID uniqueidentifier 
+	SELECT @SupplierID = SupplierId FROM Product WHERE Id = @Id
 
-	INSERT INTO Product ([ID],[ProductCode],[Description], [Price], [CreatedDate])
-	VALUES (@newProductID, @ProductCode, @Description, @Price, GetDate())
+	INSERT INTO Product ([ID],[ProductCode],[Description], [Price], [CreatedDate], SupplierId)
+	VALUES (@newProductID, @ProductCode, @Description, @Price, GetDate(), @SupplierID)
 
 	SELECT @newProductID
 END
