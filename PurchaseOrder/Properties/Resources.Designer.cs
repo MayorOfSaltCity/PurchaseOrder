@@ -70,6 +70,15 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AddProductToSupplierBySupplierID.
+        /// </summary>
+        internal static string AddProductToSupplierProc {
+            get {
+                return ResourceManager.GetString("AddProductToSupplierProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server=.;Database=HarroPODB;Trusted_Connection=True;.
         /// </summary>
         internal static string ConnectionString {
@@ -106,6 +115,24 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FetchAll.
+        /// </summary>
+        internal static string FetchAllParameterName {
+            get {
+                return ResourceManager.GetString("FetchAllParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetProductByProductCode.
+        /// </summary>
+        internal static string GetProductByProductCodeProc {
+            get {
+                return ResourceManager.GetString("GetProductByProductCodeProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetSupplierBySupplierCode.
         /// </summary>
         internal static string GetSupplierByCodeProc {
@@ -129,6 +156,15 @@ namespace PurchaseOrder.Properties {
         internal static string IdParameter {
             get {
                 return ResourceManager.GetString("IdParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IsDeleted.
+        /// </summary>
+        internal static string IsDeletedParameterName {
+            get {
+                return ResourceManager.GetString("IsDeletedParameterName", resourceCulture);
             }
         }
         
@@ -165,6 +201,24 @@ namespace PurchaseOrder.Properties {
         internal static string ProductDescriptionParameterName {
             get {
                 return ResourceManager.GetString("ProductDescriptionParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product {0} does not exist..
+        /// </summary>
+        internal static string ProductDoesNotExistsErrorMessage {
+            get {
+                return ResourceManager.GetString("ProductDoesNotExistsErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot create product, the product code is in use..
+        /// </summary>
+        internal static string ProductExistsErrorMessage {
+            get {
+                return ResourceManager.GetString("ProductExistsErrorMessage", resourceCulture);
             }
         }
         
@@ -264,6 +318,15 @@ namespace PurchaseOrder.Properties {
         internal static string SupplierSearchProcName {
             get {
                 return ResourceManager.GetString("SupplierSearchProcName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UpdateProductByProductID.
+        /// </summary>
+        internal static string UpdateProductProc {
+            get {
+                return ResourceManager.GetString("UpdateProductProc", resourceCulture);
             }
         }
     }

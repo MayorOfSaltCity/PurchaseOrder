@@ -23,10 +23,10 @@ namespace PurchaseOrder.Controllers
         }
 
         [HttpGet (Name = "SearchProducts")]
-        public async Task<IEnumerable<Product>> SearchProducts(string searchString)
+        public async Task<IEnumerable<Product>> SearchProducts(string searchString, bool isDeleted)
         {
             _logger.LogInformation(Resources.SearchProductsLogMessage, searchString);
-            var products = await _dal.SearchProducts(searchString);
+            var products = await _dal.SearchProducts(searchString, isDeleted);
             return products;
         }
 

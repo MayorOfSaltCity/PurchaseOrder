@@ -8,10 +8,11 @@ using System.Text;
 
 namespace PurchaseOrderUnitTests
 {
+    [TestClass]
     public class ProductControllerTests
     {
         [TestMethod]
-        public void AddProductToSupplier()
+        public void AddProductToSupplierTest()
         {
             var productController = new ProductController(new LoggerStub<ProductController>());
             var supplierControl = new SupplierController(new LoggerStub<SupplierController>());

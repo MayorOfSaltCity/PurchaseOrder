@@ -121,6 +121,10 @@
     <value>Adding Product {0} to Supplier {1}</value>
     <comment>Logger message for adding a product to a supplier</comment>
   </data>
+  <data name="AddProductToSupplierProc" xml:space="preserve">
+    <value>AddProductToSupplierBySupplierID</value>
+    <comment>The stored procedure to add a product to a supplier by supplier ID</comment>
+  </data>
   <data name="ConnectionString" xml:space="preserve">
     <value>Server=.;Database=HarroPODB;Trusted_Connection=True;</value>
     <comment>The application default connection string</comment>
@@ -136,6 +140,14 @@
   <data name="CreatingSupplierLogMessage" xml:space="preserve">
     <value>Creating Supplier In Database with Supplier Code {0}</value>
   </data>
+  <data name="FetchAllParameterName" xml:space="preserve">
+    <value>FetchAll</value>
+    <comment>a flag indicating whether or not to fetch all records.</comment>
+  </data>
+  <data name="GetProductByProductCodeProc" xml:space="preserve">
+    <value>GetProductByProductCode</value>
+    <comment>Get a product by the product code</comment>
+  </data>
   <data name="GetSupplierByCodeProc" xml:space="preserve">
     <value>GetSupplierBySupplierCode</value>
   </data>
@@ -145,6 +157,10 @@
   <data name="IdParameter" xml:space="preserve">
     <value>ID</value>
     <comment>The ID Parameter for data tables</comment>
+  </data>
+  <data name="IsDeletedParameterName" xml:space="preserve">
+    <value>IsDeleted</value>
+    <comment>A flag indicating whether or not to find deleted items</comment>
   </data>
   <data name="NameParameterName" xml:space="preserve">
     <value>Name</value>
@@ -159,6 +175,14 @@
   <data name="ProductDescriptionParameterName" xml:space="preserve">
     <value>Description</value>
     <comment>The name of the product description parameter</comment>
+  </data>
+  <data name="ProductDoesNotExistsErrorMessage" xml:space="preserve">
+    <value>Product {0} does not exist.</value>
+    <comment>An error occur if a product is not found</comment>
+  </data>
+  <data name="ProductExistsErrorMessage" xml:space="preserve">
+    <value>Cannot create product, the product code is in use.</value>
+    <comment>An error that occurs when trying to reuse an existing product code.</comment>
   </data>
   <data name="ProductPriceParameterName" xml:space="preserve">
     <value>Price</value>
@@ -199,5 +223,9 @@
   <data name="SupplierSearchProcName" xml:space="preserve">
     <value>SearchSupplierByName</value>
     <comment>Search Supplier by name stored procedure</comment>
+  </data>
+  <data name="UpdateProductProc" xml:space="preserve">
+    <value>UpdateProductByProductID</value>
+    <comment>the stored proc used to update products</comment>
   </data>
 </root>

@@ -18,14 +18,16 @@ GO
 -- Create date: 05 March 2020
 -- Description:	Get product by product code
 -- =============================================
-IF  EXISTS (SELECT 1 FROM sys.objects WHERE [name] = 'GetProductByID' AND [type] = 'P')
+IF  EXISTS (SELECT 1 FROM sys.objects WHERE [name] = 'GetProductByProductCode' AND [type] = 'P')
 BEGIN
-	DROP PROCEDURE GetProductByID
+	DROP PROCEDURE GetProductByProductCode
 END
 GO
-CREATE PROCEDURE GetProductByID
+CREATE PROCEDURE GetProductByProductCode
 	-- Add the parameters for the stored procedure here
-	@ProductID uniqueidentifier
+	@ProductCode nchar(64),
+	@IsDeleted bit = 0,
+	@FetchAll bit = 0
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -33,8 +35,16 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [ID], [ProductCode], [Description], [Price]
-	FROM Product
-	WHERE [ID] = @ProductID
+
+	-- if fetch all flag is triggered ignore IsDeleted toggle
+	IF @FetchAll = 1 
+		SELECT [ID], [ProductCode], [Description], [Price]
+		FROM Product
+		WHERE [ProductCode] = @ProductCode
+	ELSE
+		SELECT [ID], [ProductCode], [Description], [Price]
+		FROM Product
+		WHERE [ProductCode] = @ProductCode
+		AND [IsDeleted] = @IsDeleted
 END
 GO

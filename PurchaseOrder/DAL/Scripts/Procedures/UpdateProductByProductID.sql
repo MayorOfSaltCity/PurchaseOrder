@@ -43,8 +43,11 @@ BEGIN
 		IsDeleted = 1,
 		UpdatedDate = GetDate()
 	WHERE [ID] = @ProductID
+	DECLARE @newProductID uniqueidentifier = NEWID()
 
 	INSERT INTO Product ([ID],[ProductCode],[Description], [Price], [CreatedDate])
-	VALUES (NEWID(), @ProductCode, @Description, @Price, GetDate())
+	VALUES (@newProductID, @ProductCode, @Description, @Price, GetDate())
+
+	SELECT @newProductID
 END
 GO

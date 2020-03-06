@@ -27,7 +27,7 @@ GO
 
 CREATE PROCEDURE AddProductToSupplierBySupplierID
 	-- Add the parameters for the stored procedure here
-	@ProductCode nchar(64),
+	@ProductCode nvarchar(64),
 	@Description nvarchar(256),
 	@Price decimal (18,4),
 	@SupplierID uniqueidentifier
@@ -37,8 +37,11 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
+	DECLARE @ProductID uniqueidentifier = NEWID()
     -- Insert statements for procedure here
-	INSERT INTO Product ([ID],[ProductCode],[Description], [Price], [CreatedDate])
-	VALUES (NEWID(), @ProductCode, @Description, @Price, GetDate())
+	INSERT INTO Product ([ID],[ProductCode],[Description], [Price], [SupplierID], [CreatedDate])
+	VALUES (@ProductID, @ProductCode, @Description, @Price, @SupplierID, GetDate())
+
+	SELECT @ProductID
 END
 GO
