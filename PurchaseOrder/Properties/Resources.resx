@@ -140,6 +140,10 @@
   <data name="CreatingSupplierLogMessage" xml:space="preserve">
     <value>Creating Supplier In Database with Supplier Code {0}</value>
   </data>
+  <data name="DeleteProductByIdProc" xml:space="preserve">
+    <value>DeleteProductByProductId</value>
+    <comment>Delete a product from use by the product ID</comment>
+  </data>
   <data name="FetchAllParameterName" xml:space="preserve">
     <value>FetchAll</value>
     <comment>a flag indicating whether or not to fetch all records.</comment>
@@ -183,6 +187,10 @@
   <data name="ProductExistsErrorMessage" xml:space="preserve">
     <value>Cannot create product, the product code is in use.</value>
     <comment>An error that occurs when trying to reuse an existing product code.</comment>
+  </data>
+  <data name="ProductIdParameterName" xml:space="preserve">
+    <value>ProductId</value>
+    <comment>The parameter name for the product ID</comment>
   </data>
   <data name="ProductPriceParameterName" xml:space="preserve">
     <value>Price</value>

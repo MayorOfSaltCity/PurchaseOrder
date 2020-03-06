@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace PurchaseOrder.DAL
 {
@@ -84,6 +85,33 @@ namespace PurchaseOrder.DAL
                     }
 
                     returnValue = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                //LogException("Failed to ExecuteNonQuery for " + procedureName, ex, parameters);
+                throw;
+            }
+
+            return returnValue;
+        }
+
+        protected async Task<int> ExecuteNonQueryAsync(string procedureName, List<DbParameter> parameters, CommandType commandType = CommandType.StoredProcedure)
+        {
+            int returnValue = -1;
+
+            try
+            {
+                using (SqlConnection connection = this.GetConnection())
+                {
+                    DbCommand cmd = this.GetCommand(connection, procedureName, commandType);
+
+                    if (parameters != null && parameters.Count > 0)
+                    {
+                        cmd.Parameters.AddRange(parameters.ToArray());
+                    }
+
+                    returnValue = await cmd.ExecuteNonQueryAsync();
                 }
             }
             catch (Exception ex)

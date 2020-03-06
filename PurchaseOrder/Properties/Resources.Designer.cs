@@ -115,6 +115,15 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DeleteProductByProductId.
+        /// </summary>
+        internal static string DeleteProductByIdProc {
+            get {
+                return ResourceManager.GetString("DeleteProductByIdProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FetchAll.
         /// </summary>
         internal static string FetchAllParameterName {
@@ -219,6 +228,15 @@ namespace PurchaseOrder.Properties {
         internal static string ProductExistsErrorMessage {
             get {
                 return ResourceManager.GetString("ProductExistsErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProductId.
+        /// </summary>
+        internal static string ProductIdParameterName {
+            get {
+                return ResourceManager.GetString("ProductIdParameterName", resourceCulture);
             }
         }
         

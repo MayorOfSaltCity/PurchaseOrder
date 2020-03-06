@@ -37,5 +37,13 @@ namespace PurchaseOrder.Controllers
             Guid newId = await _dal.AddProductToSupplier(product);
             return newId;
         }
+
+        [HttpPost (Name = "DeleteProduct")]
+        public async Task<bool> DeleteProduct(Guid productId)
+        {
+            _logger.LogInformation(Resources.DeletingProductbyId, productId);
+            bool deleted = await _dal.DeleteProduct(productId);
+            return deleted;
+        }
     }
 }

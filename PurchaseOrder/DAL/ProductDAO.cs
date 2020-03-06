@@ -67,6 +67,13 @@ namespace PurchaseOrder.DAL
             return resultantId;
         }
 
+        internal async Task<bool> DeleteProduct(Guid productId)
+        {
+            var productIdParam = GetParameter(Resources.ProductIdParameterName, productId);
+            var result = await ExecuteNonQueryAsync(Resources.DeleteProductByIdProc, new List<DbParameter> { productIdParam });
+            return result == 0;
+        }
+
         internal async Task<Guid> UpdateProduct(Product product)
         {
             var testCodeParam = GetParameter(Resources.ProductCodeParameterName, product.ProductCode);
