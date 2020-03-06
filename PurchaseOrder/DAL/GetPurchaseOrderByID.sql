@@ -16,29 +16,32 @@ GO
 -- =============================================
 -- Author:		Paul Harrington
 -- Create date: 05 March 2020
--- Description:	Create a New Supplier in the Database
+-- Description:	Get Purchase Order ID
 -- =============================================
-IF  EXISTS (SELECT 1 FROM sys.objects WHERE [name] = 'CreateSupplier' AND [type] = 'P')
+IF  EXISTS (SELECT 1 FROM sys.objects WHERE [name] = 'GetPurchaseOrderByID' AND [type] = 'P')
 BEGIN
-	DROP PROCEDURE CreateSupplier
+	DROP PROCEDURE GetPurchaseOrderByID
 END
 GO
 
-CREATE PROCEDURE CreateSupplier 
+CREATE PROCEDURE GetPurchaseOrderByID
 	-- Add the parameters for the stored procedure here
-	@SupplierCode nchar(64), 
-	@Name nvarchar(256)
+	@PurchaseOrderID uniqueidentifier
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-	DECLARE @SupplierID uniqueidentifier
 
-	SELECT @SupplierID = NEWID()
     -- Insert statements for procedure here
-	INSERT INTO dbo.Supplier ([ID], [Name], [SupplierCode], [CreatedDate])
-	VALUES (@SupplierID, @Name, @SupplierCode, GETDATE())
-	SELECT @SupplierID
+	SELECT [PurchaseOrder].[ID] as [PurchaseOrderID], [Supplier].[ID], [SupplierCode], [Name] FROM
+	Supplier
+	INNER JOIN [PurchaseOrder] ON [PurchaseOrder].[SupplierID] = [Supplier].[ID]
+	WHERE [PurchaseOrder].[ID]  = @PurchaseOrderID
+
+	SELECT [PurchaseOrder].[ID] as [PurchaseOrderID], [Product].[ID], [Product].[ProductCode], [Product].[Description]
+	FROM Product
+	INNER JOIN [PurchaseOrderItem] ON [PurchaseOrderItem].[ProductID] = [Product].[ID]
+	INNER JOIN [PurchaseOrder] ON [PurchaseOrder].[ID] = @PurchaseOrderID
 END
 GO

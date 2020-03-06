@@ -34,9 +34,12 @@ BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
+	DECLARE @PoNumber AS INT
 
+	SELECT @PoNumber = COUNT(1) FROM [PurchaseOrder]
+	WHERE [SupplierID] = @SupplierID
     -- Insert statements for procedure here
-	INSERT INTO PurchaseOrder ([ID], [SupplierID], [CreatedDate])
-	VALUES (NEWID(), @SupplierID, GetDate())
+	INSERT INTO PurchaseOrder ([ID], [SupplierID], [Number], [CreatedDate])
+	VALUES (NEWID(), @SupplierID, @PoNumber, GetDate())
 END
 GO

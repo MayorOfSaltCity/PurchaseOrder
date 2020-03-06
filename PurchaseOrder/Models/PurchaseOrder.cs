@@ -5,15 +5,21 @@ using System.Threading.Tasks;
 
 namespace PurchaseOrder.Models
 {
-    public class PurchaseOrderModel
+    public abstract class BaseModel<T>
+    {
+        public T Id { get; set; }
+    }
+    public class PurchaseOrderModel : BaseModel<Guid>
     {
         
         public DateTime OrderDate { get; set; } = DateTime.Now;
-        public HashSet<PurchaseOrderProduct> Products { get; set; } = new HashSet<PurchaseOrderProduct>();
+        public HashSet<Product> Products { get; set; } = new HashSet<Product>();
+
+        public bool IsFinalized { get; set; }
 
     }
 
-    public class Product
+    public class Product : BaseModel<Guid>
     {
         public string ProductCode { get; set; } 
         public string Description { get; set; }
@@ -21,23 +27,11 @@ namespace PurchaseOrder.Models
         public Supplier Supplier { get; set; }
     }
 
-    public class Supplier
+    public class Supplier : BaseModel<Guid>
     {
         public string SuppierCode { get; set; }
         public string Name { get; set; }
-    }
 
-    public class PurchaseOrderProduct
-    {
-        public string ProductCode { get; set; }
-        public string Description { get; set; }
-        public PurchaseOrderPrice Price { get; set; }
-        public PurchaseOrderSupplier Supplier { get; set; }
-
-    }
-
-    public class PurchaseOrderSupplier 
-    {
-
+        public DateTime CreatedDate { get; set; }
     }
 }

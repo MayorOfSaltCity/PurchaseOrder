@@ -95,7 +95,32 @@ namespace PurchaseOrder.DAL
             return returnValue;
         }
 
-        protected object ExecuteScalar(string procedureName, List<SqlParameter> parameters)
+        protected int ExecuteNonQuery(DbCommand cmd, List<DbParameter> parameters, CommandType commandType = CommandType.StoredProcedure)
+        {
+            int returnValue = -1;
+
+            try
+            {
+                using (SqlConnection connection = this.GetConnection())
+                {
+                    if (parameters != null && parameters.Count > 0)
+                    {
+                        cmd.Parameters.AddRange(parameters.ToArray());
+                    }
+
+                    returnValue = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                //LogException("Failed to ExecuteNonQuery for " + procedureName, ex, parameters);
+                throw;
+            }
+
+            return returnValue;
+        }
+
+        public object ExecuteScalar(string procedureName, List<SqlParameter> parameters)
         {
             object returnValue = null;
 
@@ -122,7 +147,7 @@ namespace PurchaseOrder.DAL
             return returnValue;
         }
 
-        protected DbDataReader GetDataReader(string procedureName, List<DbParameter> parameters, CommandType commandType = CommandType.StoredProcedure)
+        public DbDataReader GetDataReader(string procedureName, List<DbParameter> parameters, CommandType commandType = CommandType.StoredProcedure)
         {
             DbDataReader ds;
 

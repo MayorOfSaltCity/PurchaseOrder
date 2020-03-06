@@ -14,7 +14,7 @@ namespace PurchaseOrder.Controllers
     [Route("[controller]")]
     public class SupplierController : ControllerBase
     {
-        private readonly BaseDataAccess _dal = new BaseDataAccess();
+        private readonly SupplierDAO _dal = new SupplierDAO();
         private readonly ILogger<SupplierController> _logger;
 
         public SupplierController(ILogger<SupplierController> logger)
@@ -23,10 +23,19 @@ namespace PurchaseOrder.Controllers
         }
 
         [HttpGet(Name ="Search")]
-        public async Task<IEnumerable<Supplier>> Get(string searchString)
+        public async Task<IEnumerable<Supplier>> Search(string searchString)
         {
-            var suppliers = new List<Supplier>();
+            var suppliers = await _dal.SearchSuppliers(searchString);
+            
+            return suppliers;
 
+        }
+
+        [HttpPost(Name = "AddSupplier")]
+        public async Task<Supplier> AddSupplier(Supplier supplier)
+        {
+            var rSupplier = new Supplier();
+            return rSupplier;
         }
     }
 }
