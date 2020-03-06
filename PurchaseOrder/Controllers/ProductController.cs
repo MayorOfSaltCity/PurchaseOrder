@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PurchaseOrder.DAL;
 using PurchaseOrder.Models;
-
+using PurchaseOrder.Properties;
 
 namespace PurchaseOrder.Controllers
 {
@@ -13,7 +14,7 @@ namespace PurchaseOrder.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-
+        private readonly ProductDAO _dal = new ProductDAO();
         private readonly ILogger<ProductController> _logger;
 
         public ProductController(ILogger<ProductController> logger)
@@ -22,10 +23,11 @@ namespace PurchaseOrder.Controllers
         }
 
         [HttpGet (Name = "SearchProducts")]
-        public IEnumerable<Product> Get(string searchString)
+        public async Task<IEnumerable<Product>> SearchProducts(string searchString)
         {
-            var rng = new Random();
-            return null;
+            _logger.LogInformation(Resources.SearchProductsLogMessage, searchString);
+            var products = await _dal.SearchProducts(searchString);
+            return products;
         }
     }
 }

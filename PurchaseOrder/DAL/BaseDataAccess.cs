@@ -120,7 +120,7 @@ namespace PurchaseOrder.DAL
             return returnValue;
         }
 
-        public object ExecuteScalar(string procedureName, List<SqlParameter> parameters)
+        protected object ExecuteScalar(string procedureName, List<SqlParameter> parameters)
         {
             object returnValue = null;
 
@@ -147,7 +147,7 @@ namespace PurchaseOrder.DAL
             return returnValue;
         }
 
-        public DbDataReader GetDataReader(string procedureName, List<DbParameter> parameters, CommandType commandType = CommandType.StoredProcedure)
+        protected DbDataReader GetDataReader(string procedureName, List<DbParameter> parameters, CommandType commandType = CommandType.StoredProcedure)
         {
             DbDataReader ds;
 

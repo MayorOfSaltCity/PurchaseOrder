@@ -1,4 +1,5 @@
-﻿using PurchaseOrder.Properties;
+﻿using PurchaseOrder.Models;
+using PurchaseOrder.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace PurchaseOrder.DAL
 
         }
 
-
+        public  async Task<List<Product>> SearchProducts(string searchString)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
