@@ -61,7 +61,7 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Server=.;Database=HarroPODB;Trusted_Connection=True;.
         /// </summary>
         internal static string ConnectionString {
             get {
@@ -187,7 +187,7 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot create supplier Supplier already exists.
+        ///   Looks up a localized string similar to Cannot create supplier Supplier {0} already exists.
         /// </summary>
         internal static string SupplierAlreadyExistsError {
             get {
@@ -201,6 +201,15 @@ namespace PurchaseOrder.Properties {
         internal static string SupplierCodeParameterName {
             get {
                 return ResourceManager.GetString("SupplierCodeParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The supplier does not exist in the database.
+        /// </summary>
+        internal static string SupplierDoesNotExistErrorMessage {
+            get {
+                return ResourceManager.GetString("SupplierDoesNotExistErrorMessage", resourceCulture);
             }
         }
         

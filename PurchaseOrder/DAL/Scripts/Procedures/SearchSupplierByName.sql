@@ -35,6 +35,6 @@ BEGIN
 
     -- Insert statements for procedure here
 	SELECT [ID],[SupplierCode],[Name] FROM Supplier
-	WHERE [Name] LIKE '%' + @s + '%s'
+	WHERE [Name] LIKE '%' + LTRIM(RTRIM(@s)) + '%'
 END
 GO

@@ -25,15 +25,16 @@ namespace PurchaseOrder.DAL
 
             
             var nameParam = this.GetParameter(Resources.NameParameterName, supplier.Name);
-            var supplierCodeParam = this.GetParameter(Resources.SupplierCodeParameterName, supplier.SuppierCode);
+            var supplierCodeParam = this.GetParameter(Resources.SupplierCodeParameterName, supplier.SupplierCode);
 
-            var tDr = GetDataReader("GetSupplierByProductCode", new List<DbParameter> { supplierCodeParam });
+            var tDr = GetDataReader(Resources.GetSupplierByCodeProc, new List<DbParameter> { supplierCodeParam });
             if (tDr.HasRows)
-                throw new Exception(Resources.SupplierAlreadyExistsError);
-
+                throw new Exception(string.Format(Resources.SupplierAlreadyExistsError, supplier.SupplierCode));
+            supplierCodeParam = null;
+            supplierCodeParam = this.GetParameter(Resources.SupplierCodeParameterName, supplier.SupplierCode);
             var dr = this.GetDataReader(Resources.CreateSupplierProc, new List<DbParameter> { nameParam, supplierCodeParam });
             if (!dr.HasRows)
-                throw new Exception("Failed to create supplier");
+                throw new Exception(Resources.CreateSupplierError);
 
             await dr.ReadAsync();
             var rs = dr.GetGuid(0);
@@ -52,11 +53,11 @@ namespace PurchaseOrder.DAL
             var sIdParam = GetParameter(Resources.IdParameter, supplierId);
             var reader = GetDataReader(Resources.GetSupplierByIdProc, new List<DbParameter> { sIdParam });
             if (!reader.HasRows)
-                throw new Exception("Supplier Does not exist");
+                throw new Exception(Resources.SupplierDoesNotExistErrorMessage);
 
             await reader.ReadAsync();
             rs.Id = reader.GetGuid(0);
-            rs.SuppierCode = reader.GetString(1);
+            rs.SupplierCode = reader.GetString(1);
             rs.Name = reader.GetString(2);
 
             return rs;
@@ -73,11 +74,11 @@ namespace PurchaseOrder.DAL
             var sIdParam = GetParameter(Resources.SupplierCodeParameterName, supplierCode);
             var reader = GetDataReader(Resources.GetSupplierByCodeProc, new List<DbParameter> { sIdParam });
             if (!reader.HasRows)
-                throw new Exception("Supplier Does not exist");
+                throw new Exception(Resources.SupplierDoesNotExistErrorMessage);
 
             await reader.ReadAsync();
             rs.Id = reader.GetGuid(0);
-            rs.SuppierCode = reader.GetString(1);
+            rs.SupplierCode = reader.GetString(1);
             rs.Name = reader.GetString(2);
             await reader.CloseAsync();
             return rs;
@@ -94,8 +95,8 @@ namespace PurchaseOrder.DAL
                     var r = new Supplier
                     {
                         Id = reader.GetGuid(0),
-                        SuppierCode = reader.GetString(1),
-                        Name = reader.GetString(2)
+                        SupplierCode = reader.GetString(1).Trim(),
+                        Name = reader.GetString(2).Trim()
                     };
 
                     res.Add(r);

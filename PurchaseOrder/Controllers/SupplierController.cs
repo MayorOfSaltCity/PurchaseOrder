@@ -34,7 +34,7 @@ namespace PurchaseOrder.Controllers
         [HttpPost(Name = "AddSupplier")]
         public async Task<Supplier> AddSupplier(Supplier supplier)
         {
-            _logger.LogInformation(Resources.CreatingSupplierLogMessage, supplier.SuppierCode);
+            _logger.LogInformation(Resources.CreatingSupplierLogMessage, supplier.SupplierCode);
             var res = await _dal.CreateSupplier(supplier);
             var dSupplier = await _dal.GetSupplierByID(res);
             return dSupplier;

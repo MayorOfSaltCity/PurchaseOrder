@@ -29,10 +29,13 @@ namespace PurchaseOrder.DAL
                         Id = reader.GetGuid(0),
                         ProductCode = reader.GetString(1),
                         Description = reader.GetString(2),
-                        Price = reader.GetDecimal(4)
-                    }
+                        Price = reader.GetDouble(4)
+                    };
+
+                    products.Add(product);
                 }
 
+            await reader.CloseAsync();
             return products;
         }
     }

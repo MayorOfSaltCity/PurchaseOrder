@@ -19,7 +19,7 @@ GO
 -- Description:	Searches for products by description
 -- =============================================
 
-IF EXISTS (SELECT (1) FROM sys.sysobjects WHERE [Name] = 'SearchProductsByDescription' AND [type] = 'P'
+IF EXISTS (SELECT (1) FROM sys.sysobjects WHERE [Name] = 'SearchProductsByDescription' AND [type] = 'P')
 BEGIN
 	DROP PROCEDURE SearchProductsByDescription
 END

@@ -18,13 +18,13 @@ GO
 -- Create date: 05 March 2020
 -- Description:	Select Supplier By Supplier Code
 -- =============================================
-IF EXISTS (SELECT 1 FROM sys.sysobjects WHERE [name] = 'GetSuppierBySupplierCode' AND [type] = 'P')
+IF EXISTS (SELECT 1 FROM sys.sysobjects WHERE [name] = 'GetSupplierBySupplierCode' AND [type] = 'P')
 BEGIN
-	DROP PROCEDURE GetSuppierBySupplierCode
+	DROP PROCEDURE GetSupplierBySupplierCode
 END 
 GO
 
-CREATE PROCEDURE GetSuppierBySupplierCode
+CREATE PROCEDURE GetSupplierBySupplierCode
 	-- Add the parameters for the stored procedure here
 	@SupplierCode nchar(64)
 AS
@@ -34,7 +34,7 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [ID],[SupplierCode],[Name] FROM Supplier
+	SELECT [ID],RTRIM([SupplierCode]),RTRIM([Name]) FROM Supplier
 	WHERE [SupplierCode] = @SupplierCode 
 END
 GO
