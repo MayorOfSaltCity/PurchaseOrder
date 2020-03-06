@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PurchaseOrder.DAL;
 using PurchaseOrder.Models;
 
 
@@ -13,7 +14,7 @@ namespace PurchaseOrder.Controllers
     [Route("[controller]")]
     public class SupplierController : ControllerBase
     {
-
+        private readonly BaseDataAccess _dal = new BaseDataAccess();
         private readonly ILogger<SupplierController> _logger;
 
         public SupplierController(ILogger<SupplierController> logger)
@@ -21,11 +22,11 @@ namespace PurchaseOrder.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IEnumerable<Supplier> Get()
+        [HttpGet(Name ="Search")]
+        public async Task<IEnumerable<Supplier>> Get(string searchString)
         {
-            var rng = new Random();
-            return null;
+            var suppliers = new List<Supplier>();
+
         }
     }
 }
