@@ -52,6 +52,7 @@ namespace PurchaseOrder.DAL
             await poCreateReader.ReadAsync();
             var guid = poCreateReader.GetGuid(0);
 
+            await poCreateReader.CloseAsync();
             return guid;
         }
 
@@ -95,6 +96,7 @@ namespace PurchaseOrder.DAL
                 return purchaseOrder;
             }
 
+            await poiReader.CloseAsync();
             while (await poiReader.ReadAsync())
             {
                 var purchaseOrderItem = new PurchaseOrderProduct
@@ -109,6 +111,7 @@ namespace PurchaseOrder.DAL
                 purchaseOrder.Products.Add(purchaseOrderItem);
             }
 
+            await poiReader.CloseAsync();
             return purchaseOrder;
         }
 
@@ -116,7 +119,7 @@ namespace PurchaseOrder.DAL
         internal async Task<Guid> AddProductToPurchaseOrder(Guid purchaseOrderId, Guid productId, int quantity)
         {
             var productIdParam = GetParameter(Resources.ProductIdParameterName, productId);
-            var purchaseOrderIdParam = GetParameter(Resources.FetchAllParameterName, purchaseOrderId);
+            var purchaseOrderIdParam = GetParameter(Resources.PurchaseOrderIdParamName, purchaseOrderId);
             var quantityParam = GetParameter(Resources.PurchaseOrderQuantityParameterName, quantity);
             var addItemProc = GetDataReader(Resources.AddProductToPurchaseOrderProc, new List<DbParameter> { purchaseOrderIdParam, productIdParam, quantityParam });
             if (!addItemProc.HasRows)
@@ -133,36 +136,33 @@ namespace PurchaseOrder.DAL
 
         internal async Task<bool> RemoveProductFromPurchaseOrder(Guid purchaseOrderId, Guid productId)
         {
-            var productIdParam = GetParameter(Resources.ProductIdParameterName, productId);
             var purchaseOrderParam = GetParameter(Resources.PurchaseOrderIdParamName, purchaseOrderId);
+            var poReader = GetDataReader(Resources.IsPurchaseOrderFinalizedProc, new List<DbParameter> { GetParameter(Resources.PurchaseOrderIdParamName, purchaseOrderId) });
+            if (!poReader.HasRows)
+            {
+                await poReader.CloseAsync();
+                throw new Exception(string.Format(Resources.PurchaseOrderNotFoundErrorMessage, purchaseOrderId));
+            }
+            await poReader.ReadAsync();
+            var isFinalized = poReader.GetBoolean(0);
+            if (isFinalized)
+            {
+                await poReader.CloseAsync();
+                throw new Exception(string.Format(Resources.PurchaseOrderIsFinalizedErrorMessage, purchaseOrderId));
+            }
+
+            await poReader.CloseAsync();
+            var productIdParam = GetParameter(Resources.ProductIdParameterName, productId);
             var result = await ExecuteNonQueryAsync(Resources.DeleteProductFromPOByIdProc, new List<DbParameter> { productIdParam, purchaseOrderParam });
             return result == 0;
         }
 
-        internal async Task<Guid> FinalizePurchaseOrder(Product product)
+        internal async Task<bool> FinalizePurchaseOrder(Guid  purchaseOrderId)
         {
-            var tIdParam = GetParameter(Resources.ProductIdParameterName, product.Id);
-            var productReader = GetDataReader(Resources.GetProductByIdProc, new List<DbParameter> { tIdParam });
+            var poIdParam = GetParameter(Resources.PurchaseOrderIdParamName, purchaseOrderId);
+            var fin = await ExecuteNonQueryAsync(Resources.FinalizePurchaseOrderProc, new List<DbParameter> { poIdParam });
 
-            if (!productReader.HasRows)
-            {
-                await productReader.CloseAsync();
-                throw new Exception(string.Format(Resources.ProductDoesNotExistsErrorMessage, product.ProductCode));
-            }
-
-            await productReader.CloseAsync();
-            var idParam = GetParameter(Resources.IdParameter, product.Id);
-            var descriptionParameter = GetParameter(Resources.ProductDescriptionParameterName, product.Description);
-            var productCodeParameter = GetParameter(Resources.ProductCodeParameterName, product.ProductCode);
-            var priceParameter = GetParameter(Resources.ProductPriceParameterName, product.Price);
-            var reader = GetDataReader(Resources.UpdateProductProc, new List<DbParameter> { idParam, productCodeParameter, descriptionParameter, priceParameter });
-
-            if (reader.HasRows)
-                await reader.ReadAsync();
-
-            var resultantId = reader.GetGuid(0);
-            await reader.CloseAsync();
-            return resultantId;
+            return fin == -1;
         }
     }
 }

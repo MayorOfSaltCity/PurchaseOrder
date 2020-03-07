@@ -14,15 +14,26 @@ namespace PurchaseOrderUnitTests
         [TestMethod]
         public void AddProductToSupplierTest()
         {
+            var controller = new SupplierController(new LoggerStub<SupplierController>());
+            List<Supplier> suppliers = controller.Search("Test Supplier").Result as List<Supplier>;
+            var no = string.Format("{0:000}", suppliers.Count);
+            var supplier = new Supplier
+            {
+                Name = "Test Supplier",
+                SupplierCode = $"TEST-SUPPLIER-CODE-{no}"
+            };
+
+            var supplierId = controller.AddSupplier(supplier).Result;
+            Assert.IsNotNull(supplierId, "Failed to create supplier");
+            var dataSupplier = controller.GetSupplier(supplier.SupplierCode).Result;
+            Assert.IsNotNull(dataSupplier, "Could not read supplier from Database");
+            Assert.AreEqual(supplier.Name, dataSupplier.Name, "Supplier Name Corrupted on Save");
+            Assert.AreEqual(supplier.SupplierCode, dataSupplier.SupplierCode, "Supplier Code Corrupted on Save");
             var productController = new ProductController(new LoggerStub<ProductController>());
             var supplierControl = new SupplierController(new LoggerStub<SupplierController>());
             var products = productController.SearchProducts(string.Empty, true).Result as List<Product>;
             var c = string.Format("{0:000}", products.Count);
-            var suppliers = supplierControl.Search("Test").Result as List<Supplier>;
-            Assert.IsTrue(suppliers.Count > 0, "No Test Suppliers please run the create test suppliers test");
-
-            var supplier = suppliers.FirstOrDefault();
-            Assert.IsNotNull(supplier, "NULL Value in list of suppliers");
+            
             Assert.IsTrue(!string.IsNullOrEmpty(supplier.Name), "Supplier has no name");
             Assert.IsTrue(!string.IsNullOrEmpty(supplier.SupplierCode), "Supplier has no supplier code");
 
@@ -35,7 +46,8 @@ namespace PurchaseOrderUnitTests
             };
 
             Guid productId = productController.AddProductToSupplier(product).Result;
-
+            Assert.IsNotNull(productId, "Failed to add prodcut to supplier");
+            Assert.AreNotEqual(productId, Guid.Empty, "Product ID is empty GUID");
         }
         
         [TestMethod]

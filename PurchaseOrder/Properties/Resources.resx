@@ -167,6 +167,9 @@
     <value>FetchAll</value>
     <comment>a flag indicating whether or not to fetch all records.</comment>
   </data>
+  <data name="FinalizePurchaseOrderProc" xml:space="preserve">
+    <value>FinalizePurchaseOrderById</value>
+  </data>
   <data name="GetProductByIdProc" xml:space="preserve">
     <value>GetProductByID</value>
   </data>
@@ -200,6 +203,9 @@
   <data name="IsDeletedParameterName" xml:space="preserve">
     <value>IncludeDeleted</value>
     <comment>A flag indicating whether or not to find deleted items</comment>
+  </data>
+  <data name="IsPurchaseOrderFinalizedProc" xml:space="preserve">
+    <value>IsPurchaseOrderFinalized</value>
   </data>
   <data name="NameParameterName" xml:space="preserve">
     <value>Name</value>
@@ -243,6 +249,12 @@
   </data>
   <data name="PurchaseOrderIdParamName" xml:space="preserve">
     <value>PurchaseOrderID</value>
+  </data>
+  <data name="PurchaseOrderIsFinalizedErrorMessage" xml:space="preserve">
+    <value>Cannot edit purchase order [{0}]. Purchase Order is finalized</value>
+  </data>
+  <data name="PurchaseOrderNotFoundErrorMessage" xml:space="preserve">
+    <value>Cannot find Purchase Order [{0}]. </value>
   </data>
   <data name="PurchaseOrderQuantityParameterName" xml:space="preserve">
     <value>Quantity</value>

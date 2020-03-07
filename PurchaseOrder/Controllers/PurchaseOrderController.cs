@@ -30,6 +30,15 @@ namespace PurchaseOrder.Controllers
             return id;
         }
 
+
+        [HttpPut(Name = "Finalize")]
+        public async Task<bool> FinalizePurchaseOrder(Guid purchaseOrderId)
+        {
+            _logger.LogInformation($"Finalizing purchase order: {purchaseOrderId}");
+            var id = await _dal.FinalizePurchaseOrder(purchaseOrderId);
+            return id;
+        }
+
         [HttpGet(Name = "GetPurchaseOrder")]
         public async Task<PurchaseOrderModel> GetPurchaseOrder(Guid purchaseOrderId)
         {
@@ -52,6 +61,14 @@ namespace PurchaseOrder.Controllers
             _logger.LogInformation("Adding [{0}] Item [{1}]] to Purchase Order [{2}]", Quantity, productId, purchaseOrderId);
             var poiId = await _dal.AddProductToPurchaseOrder(purchaseOrderId, productId, Quantity);
             return poiId;
-        }        
+        } 
+        
+        [HttpDelete]
+        public async Task<bool> RemoveItemFromPurchaseOrder(Guid purchaseOrderId, Guid itemId)
+        {
+            _logger.LogInformation("Removing Item [{0}] from Purchase Order [{1}]", itemId, purchaseOrderId);
+            var removed = await _dal.RemoveProductFromPurchaseOrder(purchaseOrderId, itemId);
+            return removed;
+        }
     }
 }

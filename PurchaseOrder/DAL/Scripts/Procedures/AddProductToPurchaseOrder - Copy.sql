@@ -19,15 +19,17 @@ GO
 -- Description:	Adds a product to a purchase order by purchase order ID
 -- =============================================
 
-IF EXISTS (SELECT 1 FROM sys.objects WHERE [Name] = 'IsPurchaseOrderFinalized' AND TYPE = 'P')
+IF EXISTS (SELECT 1 FROM sys.objects WHERE [Name] = 'AddProductToPurchaseOrder' AND TYPE = 'P')
 BEGIN
-	DROP PROCEDURE IsPurchaseOrderFinalized
+	DROP PROCEDURE AddProductToPurchaseOrder
 END
 GO
 
-CREATE PROCEDURE IsPurchaseOrderFinalized 
+CREATE PROCEDURE AddProductToPurchaseOrder 
 	-- Add the parameters for the stored procedure here
-	@PurchaseOrderID uniqueidentifier
+	@ProductID uniqueidentifier,
+	@PurchaseOrderID uniqueidentifier,
+	@Quantity int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -35,6 +37,11 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT IsFinalized FROM PurchaseOrder WHERE Id = @PurchaseOrderID
+	DECLARE @POIID uniqueidentifier
+	SET @POIID = NEWID()
+	INSERT INTO PurchaseOrderItem ([ID], [ProductID], [PurchaseOrderID], Quantity, AddedDate)
+	VALUES (@POIID, @ProductID, @PurchaseOrderID, @Quantity, GetDate())
+
+	SELECT @POIID
 END
 GO

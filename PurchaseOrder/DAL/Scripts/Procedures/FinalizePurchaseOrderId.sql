@@ -19,13 +19,13 @@ GO
 -- Description:	Finalizes a purchase order
 -- =============================================
 
-IF EXISTS (SELECT 1 FROM sys.objects WHERE [Name] = 'FinalizePurchaseOrder' AND TYPE = 'P')
+IF EXISTS (SELECT 1 FROM sys.objects WHERE [Name] = 'FinalizePurchaseOrderById' AND TYPE = 'P')
 BEGIN
-	DROP PROCEDURE FinalizePurchaseOrder
+	DROP PROCEDURE FinalizePurchaseOrderById
 END
 GO
 
-CREATE PROCEDURE FinalizePurchaseOrder
+CREATE PROCEDURE FinalizePurchaseOrderById
 	-- Add the parameters for the stored procedure here
 	@PurchaseOrderID uniqueidentifier
 AS

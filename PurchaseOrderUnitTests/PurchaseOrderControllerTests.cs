@@ -29,13 +29,109 @@ namespace PurchaseOrderUnitTests
         [TestMethod]
         public void TestAddItemToPurchaseOrder()
         {
-            Assert.Fail();
+            var productController = new ProductController(new LoggerStub<ProductController>());
+            var supplierControl = new SupplierController(new LoggerStub<SupplierController>());
+            var products = productController.SearchProducts(string.Empty, true).Result as List<Product>;
+            var c = string.Format("{0:000}", products.Count);
+            var suppliers = supplierControl.Search("Test").Result as List<Supplier>;
+            Assert.IsTrue(suppliers.Count > 0, "No Test Suppliers please run the create test suppliers test");
+
+            var supplier = suppliers.FirstOrDefault();
+            Assert.IsNotNull(supplier, "NULL Value in list of suppliers");
+            Assert.IsTrue(!string.IsNullOrEmpty(supplier.Name), "Supplier has no name");
+            Assert.IsTrue(!string.IsNullOrEmpty(supplier.SupplierCode), "Supplier has no supplier code");
+
+            var product = new Product
+            {
+                Description = "Test product",
+                Price = 59.99M,
+                ProductCode = $"TEST-PRODUCT-CODE-{c}",
+                Supplier = supplier
+            };
+
+            Guid productId = productController.AddProductToSupplier(product).Result;
+            var poController = new PurchaseOrderController(new LoggerStub<PurchaseOrderController>());
+
+            var poId = poController.CreatePurchaseOrder(supplier.Id).Result;
+            Assert.IsNotNull(poId, "Purchase order controller returned NULL");
+            Assert.AreNotEqual(poId, Guid.Empty, "Purchase Order ID is Empty GUID");
+            var poiId = poController.AddProductToPurchaseOrder(poId, productId, 5);
+            Assert.IsNotNull(poiId, "Failed to add item to purchase order");
+            Assert.AreNotEqual(poiId, Guid.Empty, "Purchase Order Item ID is Empty GUID");
+        }
+
+        [TestMethod]
+        public void TestFinalizePurhcaseOrder()
+        {
+            var productController = new ProductController(new LoggerStub<ProductController>());
+            var supplierControl = new SupplierController(new LoggerStub<SupplierController>());
+            var products = productController.SearchProducts(string.Empty, true).Result as List<Product>;
+            var c = string.Format("{0:000}", products.Count);
+            var suppliers = supplierControl.Search("Test").Result as List<Supplier>;
+            Assert.IsTrue(suppliers.Count > 0, "No Test Suppliers please run the create test suppliers test");
+
+            var supplier = suppliers.FirstOrDefault();
+            Assert.IsNotNull(supplier, "NULL Value in list of suppliers");
+            Assert.IsTrue(!string.IsNullOrEmpty(supplier.Name), "Supplier has no name");
+            Assert.IsTrue(!string.IsNullOrEmpty(supplier.SupplierCode), "Supplier has no supplier code");
+
+            var product = new Product
+            {
+                Description = "Test product",
+                Price = 59.99M,
+                ProductCode = $"TEST-PRODUCT-CODE-{c}",
+                Supplier = supplier
+            };
+
+            Guid productId = productController.AddProductToSupplier(product).Result;
+            var poController = new PurchaseOrderController(new LoggerStub<PurchaseOrderController>());
+
+            var poId = poController.CreatePurchaseOrder(supplier.Id).Result;
+            Assert.IsNotNull(poId, "Purchase order controller returned NULL");
+            Assert.AreNotEqual(poId, Guid.Empty, "Purchase Order ID is Empty GUID");
+            var poiId = poController.AddProductToPurchaseOrder(poId, productId, 5);
+            Assert.IsNotNull(poiId, "Failed to add item to purchase order");
+            Assert.AreNotEqual(poiId, Guid.Empty, "Purchase Order Item ID is Empty GUID");
+            // var finalized = poController.FinalizePurchaseOrder(poId);
+
+            var finalized = poController.FinalizePurchaseOrder(poId);
         }
 
         [TestMethod]
         public void TestRemoveItemFromPurchaseOrder()
         {
-            Assert.Fail();
+            var productController = new ProductController(new LoggerStub<ProductController>());
+            var supplierControl = new SupplierController(new LoggerStub<SupplierController>());
+            var products = productController.SearchProducts(string.Empty, true).Result as List<Product>;
+            var c = string.Format("{0:000}", products.Count);
+            var suppliers = supplierControl.Search("Test").Result as List<Supplier>;
+            Assert.IsTrue(suppliers.Count > 0, "No Test Suppliers please run the create test suppliers test");
+
+            var supplier = suppliers.FirstOrDefault();
+            Assert.IsNotNull(supplier, "NULL Value in list of suppliers");
+            Assert.IsTrue(!string.IsNullOrEmpty(supplier.Name), "Supplier has no name");
+            Assert.IsTrue(!string.IsNullOrEmpty(supplier.SupplierCode), "Supplier has no supplier code");
+
+            var product = new Product
+            {
+                Description = "Test product",
+                Price = 59.99M,
+                ProductCode = $"TEST-PRODUCT-CODE-{c}",
+                Supplier = supplier
+            };
+
+            Guid productId = productController.AddProductToSupplier(product).Result;
+            var poController = new PurchaseOrderController(new LoggerStub<PurchaseOrderController>());
+
+            var poId = poController.CreatePurchaseOrder(supplier.Id).Result;
+            Assert.IsNotNull(poId, "Purchase order controller returned NULL");
+            Assert.AreNotEqual(poId, Guid.Empty, "Purchase Order ID is Empty GUID");
+            var poiId = poController.AddProductToPurchaseOrder(poId, productId, 5).Result;
+            Assert.IsNotNull(poiId, "Failed to add item to purchase order");
+            Assert.AreNotEqual(poiId, Guid.Empty, "Purchase Order Item ID is Empty GUID");
+
+            var removed = poController.RemoveItemFromPurchaseOrder(poId, productId).Result;
+            Assert.IsTrue(removed, "Item was not removed from the purchase order");
         }
 
         [TestMethod]

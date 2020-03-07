@@ -187,6 +187,15 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FinalizePurchaseOrderById.
+        /// </summary>
+        internal static string FinalizePurchaseOrderProc {
+            get {
+                return ResourceManager.GetString("FinalizePurchaseOrderProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetProductByID.
         /// </summary>
         internal static string GetProductByIdProc {
@@ -273,6 +282,15 @@ namespace PurchaseOrder.Properties {
         internal static string IsDeletedParameterName {
             get {
                 return ResourceManager.GetString("IsDeletedParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IsPurchaseOrderFinalized.
+        /// </summary>
+        internal static string IsPurchaseOrderFinalizedProc {
+            get {
+                return ResourceManager.GetString("IsPurchaseOrderFinalizedProc", resourceCulture);
             }
         }
         
@@ -381,6 +399,24 @@ namespace PurchaseOrder.Properties {
         internal static string PurchaseOrderIdParamName {
             get {
                 return ResourceManager.GetString("PurchaseOrderIdParamName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot edit purchase order [{0}]. Purchase Order is finalized.
+        /// </summary>
+        internal static string PurchaseOrderIsFinalizedErrorMessage {
+            get {
+                return ResourceManager.GetString("PurchaseOrderIsFinalizedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot find Purchase Order [{0}]. .
+        /// </summary>
+        internal static string PurchaseOrderNotFoundErrorMessage {
+            get {
+                return ResourceManager.GetString("PurchaseOrderNotFoundErrorMessage", resourceCulture);
             }
         }
         

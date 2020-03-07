@@ -16,7 +16,7 @@ GO
 -- =============================================
 -- Author:		Paul Harrington
 -- Create date: 05 March 2020
--- Description:	Delete a product from the database
+-- Description:	Delete a product from a purchase order in the database
 -- =============================================
 
 IF EXISTS (SELECT 1 FROM sys.objects WHERE [Name] = 'DeleteProductFromPurchaseOrderById' AND TYPE = 'P')
@@ -36,7 +36,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DELETE FROM PurchaseOrderItem
-	WHERE ID = @PurchaseOrderId AND
+	WHERE PurchaseOrderID = @PurchaseOrderId AND
 	ProductID = @ProductID
 END
 GO
