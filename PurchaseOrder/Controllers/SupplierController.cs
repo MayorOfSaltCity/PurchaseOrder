@@ -32,7 +32,7 @@ namespace PurchaseOrder.Controllers
 
         }
 
-        [HttpPost(Name = "AddSupplier")]
+        [HttpPost]
         [Route("/Supplier/Add")]
         public async Task<Supplier> AddSupplier(Supplier supplier)
         {
@@ -42,7 +42,7 @@ namespace PurchaseOrder.Controllers
             return dSupplier;
         }
 
-        [HttpGet (Name = "GetSupplierByCode")]
+        [HttpGet]
         [Route("/Supplier/Fetch")]
         public async Task<Supplier> GetSupplier(string supplierCode)
         {
