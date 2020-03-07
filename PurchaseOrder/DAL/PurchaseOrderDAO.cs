@@ -69,10 +69,9 @@ namespace PurchaseOrder.DAL
             var purchaseOrder = new PurchaseOrderModel
             {
                 Id = reader.GetGuid(0),
-                Number = reader.GetString(4),
+                Number = reader.GetInt32(4),
                 OrderDate = reader.GetDateTime(5),
                 IsFinalized = reader.GetBoolean(6),
-                FinalizedDate = reader.GetDateTime(7),
                 Supplier = new Supplier
                 {
                     Name = reader.GetString(3),
@@ -81,6 +80,9 @@ namespace PurchaseOrder.DAL
                     CreatedDate = reader.GetDateTime(8)
                 }
             };
+
+            if (purchaseOrder.IsFinalized)
+                purchaseOrder.FinalizedDate = reader.GetDateTime(7);
 
             await reader.CloseAsync();
 

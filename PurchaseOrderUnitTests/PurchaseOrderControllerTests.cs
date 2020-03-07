@@ -55,7 +55,19 @@ namespace PurchaseOrderUnitTests
         [TestMethod]
         public void TestGetPurchaseOrder()
         {
-            Assert.Fail();
+            var supplierController = new SupplierController(new LoggerStub<SupplierController>());
+            var poController = new PurchaseOrderController(new LoggerStub<PurchaseOrderController>());
+
+            var suppliers = supplierController.Search("Test").Result as List<Supplier>;
+            Assert.IsNotNull(suppliers, "Suppliers are null");
+            Assert.IsTrue(suppliers.Count > 0, "No test suppliers in database");
+            var supplier = suppliers.FirstOrDefault();
+            var poList = poController.GetSupplierOrders(supplier.Id).Result as List<PurchaseOrderListDTO>;
+            Assert.IsTrue(poList.Count > 0, "Test supplier has no purchase orders, please create test data");
+            var po = poList.First();
+            var purchaseOrder = poController.GetPurchaseOrder(po.Id).Result as PurchaseOrderModel;
+            Assert.IsNotNull(purchaseOrder, "Purchase order is null");
+            Assert.AreEqual(po.Id, purchaseOrder.Id, "Wrong purchase order returned");
         }
     }
 }

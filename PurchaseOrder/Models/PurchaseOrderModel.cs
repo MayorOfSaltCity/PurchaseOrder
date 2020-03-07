@@ -7,12 +7,12 @@ namespace PurchaseOrder.Models
     {
         public Supplier Supplier { get; set; }
         public DateTime OrderDate { get; set; } = DateTime.Now;
-        public string Number { get; set; }
+        public int Number { get; set; }
         public HashSet<PurchaseOrderProduct> Products { get; set; } = new HashSet<PurchaseOrderProduct>();
 
         public bool IsFinalized { get; set; }
 
-        public DateTime FinalizedDate { get; set; }
+        public DateTime? FinalizedDate { get; set; }
 
     }
     public class PurchaseOrderProduct : Product
