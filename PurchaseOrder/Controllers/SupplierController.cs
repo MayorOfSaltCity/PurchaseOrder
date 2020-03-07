@@ -22,8 +22,9 @@ namespace PurchaseOrder.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name ="Search")]
-        public async Task<IEnumerable<Supplier>> Search(string searchString)
+        [HttpGet]
+        [Route("/Supplier/Search")]
+        public async Task<IEnumerable<Supplier>> Get(string searchString)
         {
             var suppliers = await _dal.SearchSuppliers(searchString);
             
@@ -32,6 +33,7 @@ namespace PurchaseOrder.Controllers
         }
 
         [HttpPost(Name = "AddSupplier")]
+        [Route("/Supplier/Add")]
         public async Task<Supplier> AddSupplier(Supplier supplier)
         {
             _logger.LogInformation(Resources.CreatingSupplierLogMessage, supplier.SupplierCode);
@@ -41,6 +43,7 @@ namespace PurchaseOrder.Controllers
         }
 
         [HttpGet (Name = "GetSupplierByCode")]
+        [Route("/Supplier/Fetch")]
         public async Task<Supplier> GetSupplier(string supplierCode)
         {
             _logger.LogInformation(Resources.GetSupplierByCodeProc);

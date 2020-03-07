@@ -36,8 +36,6 @@ namespace PurchaseOrder
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
@@ -46,6 +44,8 @@ namespace PurchaseOrder
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }
