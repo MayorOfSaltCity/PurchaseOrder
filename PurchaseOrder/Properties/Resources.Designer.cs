@@ -61,6 +61,24 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not add product [{0}] to purchase order [{1}].
+        /// </summary>
+        internal static string AddItemToPurchaseOrderFailedErrorMessage {
+            get {
+                return ResourceManager.GetString("AddItemToPurchaseOrderFailedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddProductToPurchaseOrder.
+        /// </summary>
+        internal static string AddProductToPurchaseOrderProc {
+            get {
+                return ResourceManager.GetString("AddProductToPurchaseOrderProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding Product {0} to Supplier {1}.
         /// </summary>
         internal static string AddProductToSupplierLogMessage {
@@ -84,6 +102,24 @@ namespace PurchaseOrder.Properties {
         internal static string ConnectionString {
             get {
                 return ResourceManager.GetString("ConnectionString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create purchase order for supplier: [{0}].
+        /// </summary>
+        internal static string CreatePurchaseOrderErrorMessage {
+            get {
+                return ResourceManager.GetString("CreatePurchaseOrderErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CreatePurchaseOrder.
+        /// </summary>
+        internal static string CreatePurchaseOrderProc {
+            get {
+                return ResourceManager.GetString("CreatePurchaseOrderProc", resourceCulture);
             }
         }
         
@@ -120,6 +156,15 @@ namespace PurchaseOrder.Properties {
         internal static string DeleteProductByIdProc {
             get {
                 return ResourceManager.GetString("DeleteProductByIdProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DeleteProductFromPurchaseOrderById.
+        /// </summary>
+        internal static string DeleteProductFromPOByIdProc {
+            get {
+                return ResourceManager.GetString("DeleteProductFromPOByIdProc", resourceCulture);
             }
         }
         
@@ -169,6 +214,33 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GetPurchaseOrderItemsByID.
+        /// </summary>
+        internal static string GetPurchaseOrderItemsProc {
+            get {
+                return ResourceManager.GetString("GetPurchaseOrderItemsProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetPurchaseOrderByID.
+        /// </summary>
+        internal static string GetPurchaseOrderProc {
+            get {
+                return ResourceManager.GetString("GetPurchaseOrderProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GetPurchaseOrdersBySupplierID.
+        /// </summary>
+        internal static string GetPurchaseOrdersBySupplierProc {
+            get {
+                return ResourceManager.GetString("GetPurchaseOrdersBySupplierProc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetSupplierBySupplierCode.
         /// </summary>
         internal static string GetSupplierByCodeProc {
@@ -210,6 +282,15 @@ namespace PurchaseOrder.Properties {
         internal static string NameParameterName {
             get {
                 return ResourceManager.GetString("NameParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No purchase orders found for supplier {0} in the database..
+        /// </summary>
+        internal static string NoPurchaseOrdersForSupplierErrorMessage {
+            get {
+                return ResourceManager.GetString("NoPurchaseOrdersForSupplierErrorMessage", resourceCulture);
             }
         }
         
@@ -291,6 +372,24 @@ namespace PurchaseOrder.Properties {
         internal static string ProductSeachParameterName {
             get {
                 return ResourceManager.GetString("ProductSeachParameterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PurchaseOrderID.
+        /// </summary>
+        internal static string PurchaseOrderIdParamName {
+            get {
+                return ResourceManager.GetString("PurchaseOrderIdParamName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity.
+        /// </summary>
+        internal static string PurchaseOrderQuantityParameterName {
+            get {
+                return ResourceManager.GetString("PurchaseOrderQuantityParameterName", resourceCulture);
             }
         }
         

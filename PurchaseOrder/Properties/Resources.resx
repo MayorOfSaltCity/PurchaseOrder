@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddItemToPurchaseOrderFailedErrorMessage" xml:space="preserve">
+    <value>Could not add product [{0}] to purchase order [{1}]</value>
+  </data>
+  <data name="AddProductToPurchaseOrderProc" xml:space="preserve">
+    <value>AddProductToPurchaseOrder</value>
+  </data>
   <data name="AddProductToSupplierLogMessage" xml:space="preserve">
     <value>Adding Product {0} to Supplier {1}</value>
     <comment>Logger message for adding a product to a supplier</comment>
@@ -128,6 +134,12 @@
   <data name="ConnectionString" xml:space="preserve">
     <value>Server=.;Database=HarroPODB;Trusted_Connection=True;</value>
     <comment>The application default connection string</comment>
+  </data>
+  <data name="CreatePurchaseOrderErrorMessage" xml:space="preserve">
+    <value>Failed to create purchase order for supplier: [{0}]</value>
+  </data>
+  <data name="CreatePurchaseOrderProc" xml:space="preserve">
+    <value>CreatePurchaseOrder</value>
   </data>
   <data name="CreateSupplierError" xml:space="preserve">
     <value>Failed to create the Supplier</value>
@@ -143,6 +155,9 @@
   <data name="DeleteProductByIdProc" xml:space="preserve">
     <value>DeleteProductByProductId</value>
     <comment>Delete a product from use by the product ID</comment>
+  </data>
+  <data name="DeleteProductFromPOByIdProc" xml:space="preserve">
+    <value>DeleteProductFromPurchaseOrderById</value>
   </data>
   <data name="DeletingProductbyId" xml:space="preserve">
     <value>Deleting product: {0} by product ID</value>
@@ -162,6 +177,16 @@
   <data name="GetProductByProductIdLogMessage" xml:space="preserve">
     <value>Fetching Product {0} from database</value>
   </data>
+  <data name="GetPurchaseOrderItemsProc" xml:space="preserve">
+    <value>GetPurchaseOrderItemsByID</value>
+  </data>
+  <data name="GetPurchaseOrderProc" xml:space="preserve">
+    <value>GetPurchaseOrderByID</value>
+  </data>
+  <data name="GetPurchaseOrdersBySupplierProc" xml:space="preserve">
+    <value>GetPurchaseOrdersBySupplierID</value>
+    <comment>The stored procedure to get a list of purchase order for a supplier</comment>
+  </data>
   <data name="GetSupplierByCodeProc" xml:space="preserve">
     <value>GetSupplierBySupplierCode</value>
   </data>
@@ -179,6 +204,9 @@
   <data name="NameParameterName" xml:space="preserve">
     <value>Name</value>
     <comment>The Name parameter for the Supplier Table</comment>
+  </data>
+  <data name="NoPurchaseOrdersForSupplierErrorMessage" xml:space="preserve">
+    <value>No purchase orders found for supplier {0} in the database.</value>
   </data>
   <data name="POIdParameterName" xml:space="preserve">
     <value>PurchaseOrderID</value>
@@ -212,6 +240,12 @@
   <data name="ProductSeachParameterName" xml:space="preserve">
     <value>searchDescription</value>
     <comment>The parameter passed into the Product Search Procedure</comment>
+  </data>
+  <data name="PurchaseOrderIdParamName" xml:space="preserve">
+    <value>PurchaseOrderID</value>
+  </data>
+  <data name="PurchaseOrderQuantityParameterName" xml:space="preserve">
+    <value>Quantity</value>
   </data>
   <data name="SearchProductsLogMessage" xml:space="preserve">
     <value>Searching for products with search string {0}</value>

@@ -18,13 +18,13 @@ GO
 -- Create date: 05 March 2020
 -- Description:	Get Purchase Order ID
 -- =============================================
-IF  EXISTS (SELECT 1 FROM sys.objects WHERE [name] = 'GetPurchaseOrderByID' AND [type] = 'P')
+IF  EXISTS (SELECT 1 FROM sys.objects WHERE [name] = 'GetPurchaseOrderItemsByID' AND [type] = 'P')
 BEGIN
-	DROP PROCEDURE GetPurchaseOrderByID
+	DROP PROCEDURE GetPurchaseOrderItemsByID
 END
 GO
 
-CREATE PROCEDURE GetPurchaseOrderByID
+CREATE PROCEDURE GetPurchaseOrderItemsByID
 	-- Add the parameters for the stored procedure here
 	@PurchaseOrderID uniqueidentifier
 AS
@@ -35,18 +35,15 @@ BEGIN
 
     -- Insert statements for procedure here
 	SELECT 
-		po.[ID] as [PurchaseOrderID],	--0
-		s.[ID],							--1
-		s.[SupplierCode],				--2
-		s.[Name],						--3
-		po.[Number],					--4
-		po.[CreatedDate] as OrderDate,	--5
-		po.IsFinalized,					--6
-		po.FinalizedDate,				--7
-		s.CreatedDate					--8
-		FROM
-	Supplier s
-	INNER JOIN [PurchaseOrder] po ON po.[SupplierID] = s.[ID]
-	WHERE po.[ID]  = @PurchaseOrderID
+		p.[ID],
+		[ProductCode], 
+		[Price], 
+		[Description],
+		poi.Quantity
+	FROM [Product] p
+	INNER JOIN [PurchaseOrderItem] poi
+	ON p.ID = poi.ProductId
+	WHERE poi.ID = @PurchaseOrderID
+
 END
 GO

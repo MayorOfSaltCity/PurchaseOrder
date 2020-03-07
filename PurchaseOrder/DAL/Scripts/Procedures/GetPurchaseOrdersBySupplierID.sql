@@ -16,17 +16,17 @@ GO
 -- =============================================
 -- Author:		Paul Harrington
 -- Create date: 05 March 2020
--- Description:	Get Purchase Order ID
+-- Description:	Get Purchase Orders by Supplier ID
 -- =============================================
-IF  EXISTS (SELECT 1 FROM sys.objects WHERE [name] = 'GetPurchaseOrderByID' AND [type] = 'P')
+IF  EXISTS (SELECT 1 FROM sys.objects WHERE [name] = 'GetPurchaseOrdersBySupplierID' AND [type] = 'P')
 BEGIN
-	DROP PROCEDURE GetPurchaseOrderByID
+	DROP PROCEDURE GetPurchaseOrdersBySupplierID
 END
 GO
 
-CREATE PROCEDURE GetPurchaseOrderByID
+CREATE PROCEDURE GetPurchaseOrdersBySupplierID
 	-- Add the parameters for the stored procedure here
-	@PurchaseOrderID uniqueidentifier
+	@SupplierID uniqueidentifier
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -34,19 +34,9 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT 
-		po.[ID] as [PurchaseOrderID],	--0
-		s.[ID],							--1
-		s.[SupplierCode],				--2
-		s.[Name],						--3
-		po.[Number],					--4
-		po.[CreatedDate] as OrderDate,	--5
-		po.IsFinalized,					--6
-		po.FinalizedDate,				--7
-		s.CreatedDate					--8
-		FROM
-	Supplier s
-	INNER JOIN [PurchaseOrder] po ON po.[SupplierID] = s.[ID]
-	WHERE po.[ID]  = @PurchaseOrderID
+	SELECT [PurchaseOrder].[ID] as [PurchaseOrderID], LTRIM(RTRIM([Number])), [PurchaseOrder].[CreatedDate] FROM
+	Supplier
+	INNER JOIN [PurchaseOrder] ON [PurchaseOrder].[SupplierID] = [Supplier].[ID]
+	WHERE [Supplier].[ID]  = @SupplierID
 END
 GO

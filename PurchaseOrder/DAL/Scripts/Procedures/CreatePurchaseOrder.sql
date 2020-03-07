@@ -38,8 +38,11 @@ BEGIN
 
 	SELECT @PoNumber = COUNT(1) FROM [PurchaseOrder]
 	WHERE [SupplierID] = @SupplierID
+	DECLARE @POID uniqueidentifier
+	SET @POID = NEWID()
     -- Insert statements for procedure here
 	INSERT INTO PurchaseOrder ([ID], [SupplierID], [Number], [CreatedDate])
-	VALUES (NEWID(), @SupplierID, @PoNumber, GetDate())
+	VALUES (@POID, @SupplierID, @PoNumber, GetDate())
+	SELECT @POID
 END
 GO
