@@ -1,7 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PurchaseOrder.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using PurchaseOrder.Models;
 
 namespace PurchaseOrderUnitTests
 {
@@ -11,7 +14,16 @@ namespace PurchaseOrderUnitTests
         [TestMethod]
         public void TestCreatePurchaseOrder()
         {
-            Assert.Fail();
+            var supplierController = new SupplierController(new LoggerStub<SupplierController>());
+            var poController = new PurchaseOrderController(new LoggerStub<PurchaseOrderController>());
+
+            var suppliers = supplierController.Search("Test").Result as List<Supplier>;
+            Assert.IsNotNull(suppliers, "Suppliers are null");
+            Assert.IsTrue(suppliers.Count > 0, "No test suppliers in database");
+            var supplier = suppliers.FirstOrDefault();
+            var poId = poController.CreatePurchaseOrder(supplier.Id).Result;
+            Assert.IsNotNull(poId, "Purchase order controller returned NULL");
+            Assert.AreNotEqual(poId, Guid.Empty, "Purchase Order ID is Empty GUID");
         }
 
         [TestMethod]
@@ -29,7 +41,15 @@ namespace PurchaseOrderUnitTests
         [TestMethod]
         public void TestListPurchaseOrders()
         {
-            Assert.Fail();
+            var supplierController = new SupplierController(new LoggerStub<SupplierController>());
+            var poController = new PurchaseOrderController(new LoggerStub<PurchaseOrderController>());
+
+            var suppliers = supplierController.Search("Test").Result as List<Supplier>;
+            Assert.IsNotNull(suppliers, "Suppliers are null");
+            Assert.IsTrue(suppliers.Count > 0, "No test suppliers in database");
+            var supplier = suppliers.FirstOrDefault();
+            var poList = poController.GetSupplierOrders(supplier.Id).Result as List<PurchaseOrderListDTO>;
+            Assert.IsTrue(poList.Count > 0, "Test supplier has no purchase orders, please create test data");
         }
 
         [TestMethod]

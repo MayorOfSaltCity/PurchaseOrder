@@ -32,6 +32,7 @@ namespace PurchaseOrder.DAL
                     CreatedDate = poReader.GetDateTime(2)
                 };
 
+                purchaseOrders.Add(purchaseOrderLI);
             }
 
             await poReader.CloseAsync();
