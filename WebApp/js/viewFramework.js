@@ -2,6 +2,12 @@
 const supplierListTemplate = "<div class='supplierList'><dl onclick='loadSupplierView({{id}});'><dt>{{name}}</dt><dd>Code:{{supplierCode}}<br/>Created Date:{{createdDate}}<br/></dd></dl></div>";
 const productListRowTemplate = "<tr id='{{id}}' class='{{class}}'><td>{{productCode}}</td><td>{{description}}</td><td>{{price}}</td><td><button id='update_{{id}}' {{disabled}} onclick=loadUpdateProductView({{id}})>Update</button></td><td><button id='del_{{id}}' {{disabled}}  onclick=loadDeleteProductView({{id}})>Delete</button></td></tr>";
 const serverUrl = "http://localhost:24397/";
+const currentState = {
+    supplierId: '',
+    productId: '',
+    purchaseOrderId: ''
+};
+
 function showModal(el) {
     document.getElementById(el).style.display = "block";
 }
@@ -10,24 +16,25 @@ function closeModal(el) {
     document.getElementById(el).style.display = "none";
 }
 function loadSupplierView(supplierId) {
+    currentState.supplierId = sanitizeId(supplierId);
     var req = new XMLHttpRequest();
-    req.open("GET", serverUrl + "Product/GetSupplierProducts?supplierId=" + supplierId);
+    req.open("GET", serverUrl + "Product/GetSupplierProducts?supplierId=" + currentState.supplierId);
     req.onload = function (e) {
         var el = document.getElementById('supplierProductListRows');
-        buildProductList(req.responseText, el, supplierId);
+        buildProductList(req.responseText, el, currentState.supplierId);
         showModal('productModal');
         document.getElementById('addProductButton').onclick = function () {
-            loadAddProductView(supplierId);
+            loadAddProductView(currentState.supplierId);
         };
         document.getElementById('createPOButton').onclick = function () {
-            loadCreatePurchaseOrderView(supplierId);
+            loadCreatePurchaseOrderView(currentState.supplierId);
         };
     };
     req.send();
 }
 
 function loadAddProductView(supplierId) {
-    document.getElementById('hdnAddProductSupplierId').value = supplierId;
+    currentState.supplierId = sanitizeId(supplierId);
     document.getElementById('txtProductCode').value = '';
     document.getElementById('txtProductDescription').value = '';
     document.getElementById('txtProductPrice').value = '';
@@ -36,13 +43,12 @@ function loadAddProductView(supplierId) {
 
 function loadUpdateProductView(productId) {
     var req = new XMLHttpRequest();
-    productId = sanitizeId(productId);
-    req.open("GET", serverUrl + "Product/GetProduct?productId=" + productId);
+    currentState.productId = sanitizeId(productId);
+    req.open("GET", serverUrl + "Product/GetProduct?productId=" + currentState.productId);
     req.onload = function (e) {
         var product = JSON.parse(req.responseText);
         document.getElementById('txtUpdateProductDescription').value = product.description;
         document.getElementById('txtUpdateProductPrice').value = product.price;
-        document.getElementById('hdnUpdateProductId').value = product.id;
         showModal('updateProductModal');
     };
 
@@ -50,14 +56,13 @@ function loadUpdateProductView(productId) {
 }
 
 function updateProduct() {
-    let productId = document.getElementById('hdnUpdateProductId').value;
     let productDescription = document.getElementById('txtUpdateProductDescription').value;
     let productPrice = document.getElementById('txtUpdateProductPrice').value;
 
     let productFormData = {
         "description": productDescription,
         "price": productPrice,
-        "productId": productId
+        "productId": currentState.productId
     };
 
     let jsonString = JSON.stringify(productFormData);
@@ -67,14 +72,35 @@ function updateProduct() {
     req.open("PUT", serverUrl + "Product/UpdateProduct");
     req.onload = function (e) {
         closeModal('updateProductModal');
+        document.getELementById('updateProductButton').disabled = false;
     };
 
     req.setRequestHeader('CONTENT-TYPE', 'application/json');
     req.setRequestHeader('Accept', '*/*');
+    document.getELementById('updateProductButton').disabled = true;
     req.send(jsonString);
 }
 
 function loadCreatePurchaseOrderView(supplierId) {
+    currentState.supplierId = sanitizeId(supplierId);
+    showModal('createPurchaseOrderModal');
+}
+
+function createPurchaseOrder() {
+    let req = new XMLHttpRequest();
+    req.open("POST", serverUrl + "PurchaseOrder/CreatePurchaseOrder?supplierId=" + currentState.supplierId);
+    req.onload = function (e) {
+        
+        closeModal('createPurchaseOrderModal');
+        document.getElementById('createPurchaseOrderButton').disabled = false;
+        loadEditPurchaseOrderView();
+    };
+
+    req.send();
+}
+
+function loadEditPurchaseOrderView() {
+    let req = new XMLHttpRequest();
 
 }
 
@@ -107,7 +133,7 @@ function buildProductList(responseJson, el, supplierId) {
     });
 
     el.innerHTML += tblString;
-    console.log(el.innerHTML);
+    
 }
 
 function listSuppliers() {

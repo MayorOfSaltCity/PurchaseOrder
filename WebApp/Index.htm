@@ -67,7 +67,6 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('addProductModal');">&times;</span><br />
             <form href="#">
-                <input type="hidden" id="hdnAddProductSupplierId" />
                 <fieldset>
                     <label for="txtProductCode">Product Code:</label>
                     <input type="text" id="txtProductCode" />
@@ -88,7 +87,6 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('updateProductModal');">&times;</span><br />
             <form href="#">
-                <input id="hdnUpdateProductId" type="hidden" />
                 <fieldset>
                     <label for="txtUpdateProductDescription">Description:</label>
                     <input type="text" id="txtUpdateProductDescription" />
@@ -102,8 +100,48 @@
         </div>
     </div>
     <div id="createPurchaseOrderModal" class="modal">
-
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('createPurchaseOrderModal');">&times;</span><br />
+            <span>Create a new Purchase Order</span><br />
+            <button onclick="createPurchaseOrder()">Yes</button><button onclick="closeModal('createPurchaseOrderModal');">No</button>
+        </div>
     </div>
+    <div id="editPurchaseOrderModel" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editPurchaseOrderModel');">&times;</span><br />
+            <br />
+            <span><h2>Products</h2></span>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Product Code</td>
+                        <td>Description</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Sub Total</td>
+                    </tr>
+                </thead>
+                <tbody id="purchaseOrderProductListRows" style="overflow-y:auto;">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><label id="lblPurchaseOrderTotal"></label></td>
+                    </tr>
+                    <tr>
+                        <td><button id="addProductToPurchasOrderButton">Add Product</button></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td><button onclick="finalizePurchaseOrder()">Finalize</button></td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+        </div>
+    </div>
+
     <section id="searchSupplier" class="addSupplier">
     </section>
     <script src="/js/ajax.js" type="text/javascript"></script>

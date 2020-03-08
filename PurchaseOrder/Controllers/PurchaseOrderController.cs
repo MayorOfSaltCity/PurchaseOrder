@@ -22,7 +22,8 @@ namespace PurchaseOrder.Controllers
             _logger = logger;
         }
 
-        [HttpPost(Name = "CreatePurchaseOrder")]
+        [HttpPost]
+        [Route("CreatePurchaseOrder")]
         public async Task<Guid> CreatePurchaseOrder(Guid supplierId)
         {
             _logger.LogInformation($"Creating a new purchase order from supplier: {supplierId}");
@@ -31,7 +32,8 @@ namespace PurchaseOrder.Controllers
         }
 
 
-        [HttpPut(Name = "Finalize")]
+        [HttpPut]
+        [Route("Finalize")]
         public async Task<bool> FinalizePurchaseOrder(Guid purchaseOrderId)
         {
             _logger.LogInformation($"Finalizing purchase order: {purchaseOrderId}");
@@ -39,7 +41,8 @@ namespace PurchaseOrder.Controllers
             return id;
         }
 
-        [HttpGet(Name = "GetPurchaseOrder")]
+        [HttpGet]
+        [Route("GetPurchaseOrder")]
         public async Task<PurchaseOrderModel> GetPurchaseOrder(Guid purchaseOrderId)
         {
             _logger.LogInformation("Fetching purchase order [{0}]", purchaseOrderId);
@@ -47,7 +50,8 @@ namespace PurchaseOrder.Controllers
             return po;
         }
 
-        [HttpGet(Name = "GetSupplierOrders")]
+        [HttpGet]
+        [Route("GetSupplierOrders")]
         public async Task<IEnumerable<PurchaseOrderListDTO>> GetSupplierOrders(Guid supplierId)
         {
             _logger.LogInformation("Fetching purchase orders for supplier [{0}]", supplierId);
@@ -55,7 +59,8 @@ namespace PurchaseOrder.Controllers
             return pos;
         }
 
-        [HttpPost (Name = "AddItem")]
+        [HttpPost]
+        [Route("AddItem")]
         public async Task<Guid> AddProductToPurchaseOrder(Guid purchaseOrderId, Guid productId, int Quantity)
         {
             _logger.LogInformation("Adding [{0}] Item [{1}]] to Purchase Order [{2}]", Quantity, productId, purchaseOrderId);
@@ -64,6 +69,7 @@ namespace PurchaseOrder.Controllers
         } 
         
         [HttpDelete]
+        [Route("RemoveItem")]
         public async Task<bool> RemoveItemFromPurchaseOrder(Guid purchaseOrderId, Guid itemId)
         {
             _logger.LogInformation("Removing Item [{0}] from Purchase Order [{1}]", itemId, purchaseOrderId);
