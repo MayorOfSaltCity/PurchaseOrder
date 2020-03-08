@@ -20,18 +20,18 @@ namespace PurchaseOrder.DAL
         /// </summary>
         /// <param name="supplier">The supplier data to populate to the database</param>
         /// <returns></returns>
-        public async Task<Guid> CreateSupplier(Supplier supplier)
+        public async Task<Guid> CreateSupplier(string name, string supplierCode)
         {
 
             
-            var nameParam = this.GetParameter(Resources.NameParameterName, supplier.Name);
-            var supplierCodeParam = this.GetParameter(Resources.SupplierCodeParameterName, supplier.SupplierCode);
+            var nameParam = this.GetParameter(Resources.NameParameterName, name);
+            var supplierCodeParam = this.GetParameter(Resources.SupplierCodeParameterName, supplierCode);
 
             var tDr = GetDataReader(Resources.GetSupplierByCodeProc, new List<DbParameter> { supplierCodeParam });
             if (tDr.HasRows)
-                throw new Exception(string.Format(Resources.SupplierAlreadyExistsError, supplier.SupplierCode));
+                throw new Exception(string.Format(Resources.SupplierAlreadyExistsError, supplierCode));
             supplierCodeParam = null;
-            supplierCodeParam = this.GetParameter(Resources.SupplierCodeParameterName, supplier.SupplierCode);
+            supplierCodeParam = this.GetParameter(Resources.SupplierCodeParameterName, supplierCode);
             var dr = this.GetDataReader(Resources.CreateSupplierProc, new List<DbParameter> { nameParam, supplierCodeParam });
             if (!dr.HasRows)
                 throw new Exception(Resources.CreateSupplierError);
@@ -87,7 +87,7 @@ namespace PurchaseOrder.DAL
         public async Task<List<Supplier>> SearchSuppliers(string searchString)
         {
             var res = new List<Supplier>();
-            var sParam = GetParameter(Resources.SupplierSearchParameterName, searchString);
+            var sParam = GetParameter(Resources.SupplierSearchParameterName, string.IsNullOrEmpty(searchString) ? null : searchString);
             var reader = GetDataReader(Resources.SupplierSearchProcName, new List<DbParameter> { sParam });
             if (reader.HasRows)
                 while (await reader.ReadAsync())

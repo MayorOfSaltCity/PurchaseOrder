@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <link rel="stylesheet" href="css/main.css" />
     </head>
     <body>
         <header>
@@ -10,13 +10,30 @@
         <NAV><a href="#" onclick="listSuppliers()">Suppliers</a><a href="#">Products</a><a href="#">Purchase Orders</a></NAV>
         <section title="main" id="main">
         </section>
-        <section id="supplierList">
+        <section id="suppliers">
+            <nav><button onclick="showModal('addSupplierModal')">Add Supplier</button></nav>
+            <section id="supplierList">
+            </section>
         </section>
-        <section id="addSupplier">
-        </section>
-        <section id="viewSupplier">
-        </section>
-        <section id="searchSupplier">
+        <div id="addSupplierModal" class="modal">
+            <section id="addSupplier" class="modal-content">
+                <span class="close" onclick="closeModal('addSupplierModal');">&times;</span>
+                <br /><br /><br />
+                <form>
+                    <fieldset>
+                        <label for="txtSupplierName">Name:</label>
+                        <input type="text" id="txtSupplierName" />
+                    </fieldset>
+                    <fieldset>
+                        <label for="txtSupplierCode">Code:</label>
+                        <input type="text" id="txtSupplierCode" />
+                    </fieldset>
+                    <div class="error" id="addSupplierError"></div>
+                    <button onclick="addSupplier()">Add</button>
+                </form>
+            </section>
+        </div>
+        <section id="searchSupplier" class="addSupplier">
         </section>
         <script src="/js/ajax.js" type="text/javascript"></script>
         <script src="/js/viewFramework.js" type="text/javascript"></script>

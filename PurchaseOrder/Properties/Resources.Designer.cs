@@ -430,6 +430,15 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error occured searching for suppliers with string [{0}].
+        /// </summary>
+        internal static string SearchingSupplierLogMessage {
+            get {
+                return ResourceManager.GetString("SearchingSupplierLogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Searching for products with search string {0}.
         /// </summary>
         internal static string SearchProductsLogMessage {

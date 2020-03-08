@@ -259,6 +259,9 @@
   <data name="PurchaseOrderQuantityParameterName" xml:space="preserve">
     <value>Quantity</value>
   </data>
+  <data name="SearchingSupplierLogMessage" xml:space="preserve">
+    <value>Error occured searching for suppliers with string [{0}]</value>
+  </data>
   <data name="SearchProductsLogMessage" xml:space="preserve">
     <value>Searching for products with search string {0}</value>
     <comment>The log entry for searching for products</comment>

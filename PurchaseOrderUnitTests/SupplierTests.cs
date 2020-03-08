@@ -50,7 +50,7 @@ namespace PurchaseOrderUnitTests
                 SupplierCode = $"TEST-SUPPLIER-CODE-{no}"
             };
 
-            var supplierId = controller.AddSupplier(supplier).Result;
+            var supplierId = controller.AddSupplier(supplier.Name, supplier.SupplierCode).Result;
             Assert.IsNotNull(supplierId, "Failed to create supplier");
             var dataSupplier = controller.GetSupplier(supplier.SupplierCode).Result;
             Assert.IsNotNull(dataSupplier, "Could not read supplier from Database");
