@@ -38,7 +38,7 @@ namespace PurchaseOrder
             }
 
             app.UseCors(builder => {
-                builder.WithOrigins(@"http://localhost:2376");
+                builder.WithOrigins(@"http://localhost:2376").AllowAnyHeader().AllowAnyMethod();
             });
             app.UseRouting();
 

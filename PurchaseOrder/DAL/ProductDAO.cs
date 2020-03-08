@@ -87,6 +87,7 @@ namespace PurchaseOrder.DAL
                     ProductCode = reader.GetString(1),
                     Description = reader.GetString(2),
                     Price = reader.GetDecimal(3),
+                    IsDeleted = reader.GetBoolean(8),
                     Supplier = new Supplier
                     {
                         Name = reader.GetString(4),
@@ -95,6 +96,9 @@ namespace PurchaseOrder.DAL
                         CreatedDate = reader.GetDateTime(7)
                     }
                 };
+                
+                if (!(await reader.IsDBNullAsync(9)))
+                    product.DeletedDate = reader.GetDateTime(9);
 
                 products.Add(product);
             }

@@ -1,6 +1,7 @@
 ﻿
 const supplierListTemplate = "<div class='supplierList'><dl onclick='loadSupplierView({{id}});'><dt>{{name}}</dt><dd>Code:{{supplierCode}}<br/>Created Date:{{createdDate}}<br/></dd></dl></div>";
 const productListRowTemplate = "<tr><td>{{productCode}}</td><td>{{description}}</td><td>{{price}}</td></tr>";
+const serverUrl = "http://localhost:24397/";
 function showModal(el) {
     document.getElementById(el).style.display = "block";
 }
@@ -10,7 +11,7 @@ function closeModal(el) {
 }
 function loadSupplierView(supplierId) {
     var req = new XMLHttpRequest();
-    req.open("GET", "http://localhost:24397/Product/GetSupplierProducts?supplierId=" + supplierId);
+    req.open("GET", serverUrl + "Product/GetSupplierProducts?supplierId=" + supplierId);
     req.onload = function (e) {
         var el = document.getElementById('supplierProductListRows');
         buildProductList(req.responseText, el, supplierId);
@@ -27,7 +28,7 @@ function loadSupplierView(supplierId) {
 
 function loadAddProductView(supplierId) {
     document.getElementById('hdnAddProductSupplierId').value = supplierId;
-    document.getElementById('txtProductName').value = '';
+    document.getElementById('txtProductCode').value = '';
     document.getElementById('txtProductDescription').value = '';
     document.getElementById('txtProductPrice').value = '';
     showModal('addProductModal');
@@ -70,7 +71,7 @@ function buildProductList(responseJson, el, supplierId) {
 
 function listSuppliers() {
     var req = new XMLHttpRequest();
-    req.open("GET", "http://localhost:24397/Supplier/Search");
+    req.open("GET", serverUrl + "Supplier/Search");
     req.onload = function (e) {
         var el = document.getElementById('supplierList');
         buildSupplierListDisplay(req.responseText, el);
@@ -116,7 +117,7 @@ function addSupplier() {
         errDiv.style.display = "block";
     };
 
-    req.open("POST", "http://localhost:24397/Supplier/Add?name=" + name + "&supplierCode=" + supplierCode);
+    req.open("POST", serverUrl + "Supplier/Add?name=" + name + "&supplierCode=" + supplierCode);
     try {
         req.send();
     } catch (err) {
@@ -126,12 +127,59 @@ function addSupplier() {
 }
 
 function addProduct() {
-    let supplierId = document.getElementById('hdnProductSupplierId').value;
+    let supplierId = document.getElementById('hdnAddProductSupplierId').value;
     let productCode = document.getElementById('txtProductCode').value;
     let productDescription = document.getElementById('txtProductDescription').value;
     let productPrice = document.getElementById('txtProductPrice').value;
+
+    let productFormData = {
+        "productCode": productCode,
+        "description": productDescription,
+        "price": productPrice,
+        "supplierId": supplierId
+    };
+    let jsonString = JSON.stringify(productFormData);
+    
+    var req = new XMLHttpRequest();
+
+    req.open("POST", serverUrl + "Product/AddProductToSupplier");
+    req.onload = function (e) {
+        fetchProductData(req.responseText);
+        closeModal('addProductModal');
+    };
+    req.setRequestHeader('CONTENT-TYPE', 'application/json');
+    req.setRequestHeader('Accept', '*/*');
+    req.send(jsonString);
 }
 
+function updateProductList(product) {
+    var supDiv = productListRowTemplate.replace('{{productCode}}', product.productCode);
+
+    supDiv = supDiv.replace('{{description}}', product.description);
+    supDiv = supDiv.replace('{{price}}', product.price);
+    supDiv = supDiv.replace('{{id}}', '"' + product.id + '"');
+    document.getElementById('supplierProductListRows').innerHTML += supDiv;
+}
+
+function fetchProductData(productId) {
+    var req = new XMLHttpRequest();
+    // work around to remove quotes that are added by JS
+    while (productId.indexOf('"') > -1) {
+        productId = productId.replace('"', '');
+    }
+
+    req.open("GET", serverUrl + "Product/GetProduct?productId=" + productId);
+    req.onload = function (e) {
+        if (req.status === 200) {
+            let product = JSON.parse(req.responseText);
+            updateProductList(product);
+        } else {
+            // do some error handling
+        }
+    };
+
+    req.send();
+}
 function fetchSupplier(supplierCode) {
 
 }

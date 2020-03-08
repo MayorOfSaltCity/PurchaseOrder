@@ -40,7 +40,9 @@ BEGIN
 			s.[Name] as [SupplierName] , 
 			s.SupplierCode, 
 			s.Id as SupplierId,
-			s.CreatedDate as CreatedDate
+			s.CreatedDate as CreatedDate,
+			p.IsDeleted,
+			p.UpdatedDate
 	FROM Product p
 	INNER JOIN Supplier s ON s.ID = p.SupplierID
 	WHERE s.[ID] = @SupplierID

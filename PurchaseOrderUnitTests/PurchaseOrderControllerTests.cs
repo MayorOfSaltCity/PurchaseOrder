@@ -44,9 +44,9 @@ namespace PurchaseOrderUnitTests
             var product = new AddProductToSupplierModel
             {
                 Description = "Test product",
-                Price = 59.99M,
+                Price = "59.99",
                 ProductCode = $"TEST-PRODUCT-CODE-{c}",
-                SupplierId = supplier.Id
+                SupplierId = supplier.Id.ToString()
             };
 
             Guid productId = productController.AddProductToSupplier(product).Result;
@@ -78,9 +78,9 @@ namespace PurchaseOrderUnitTests
             var product = new AddProductToSupplierModel
             {
                 Description = "Test product",
-                Price = 59.99M,
+                Price = "59.99",
                 ProductCode = $"TEST-PRODUCT-CODE-{c}",
-                SupplierId = supplier.Id
+                SupplierId = supplier.Id.ToString()
             };
 
             Guid productId = productController.AddProductToSupplier(product).Result;
@@ -115,9 +115,9 @@ namespace PurchaseOrderUnitTests
             var product = new AddProductToSupplierModel
             {
                 Description = "Test product",
-                Price = 59.99M,
+                Price = "59.99",
                 ProductCode = $"TEST-PRODUCT-CODE-{c}",
-                SupplierId  = supplier.Id
+                SupplierId  = supplier.Id.ToString()
             };
 
             Guid productId = productController.AddProductToSupplier(product).Result;
