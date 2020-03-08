@@ -99,6 +99,8 @@ namespace PurchaseOrder.DAL
                         Name = reader.GetString(2).Trim()
                     };
 
+                    if (!await reader.IsDBNullAsync(3))
+                        r.CreatedDate = reader.GetDateTime(3);
                     res.Add(r);
                 }
 

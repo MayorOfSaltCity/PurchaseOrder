@@ -34,7 +34,7 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT [ID],[SupplierCode],[Name] FROM Supplier
+	SELECT [ID],[SupplierCode],[Name],CreatedDate FROM Supplier
 	WHERE [Name] LIKE '%' + LTRIM(RTRIM(@s)) + '%' OR @s IS NULL
 END
 GO

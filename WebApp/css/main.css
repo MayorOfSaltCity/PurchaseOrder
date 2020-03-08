@@ -39,3 +39,11 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.deleted {
+    text-decoration: line-through;
+}
+
+.regular {
+    text-decoration: none;
+}

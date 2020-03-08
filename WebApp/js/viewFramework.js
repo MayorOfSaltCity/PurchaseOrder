@@ -1,6 +1,6 @@
 ﻿
 const supplierListTemplate = "<div class='supplierList'><dl onclick='loadSupplierView({{id}});'><dt>{{name}}</dt><dd>Code:{{supplierCode}}<br/>Created Date:{{createdDate}}<br/></dd></dl></div>";
-const productListRowTemplate = "<tr><td>{{productCode}}</td><td>{{description}}</td><td>{{price}}</td></tr>";
+const productListRowTemplate = "<tr id='{{id}}' class='{{class}}'><td>{{productCode}}</td><td>{{description}}</td><td>{{price}}</td><td><button id='update_{{id}}' {{disabled}}>Update</button></td><td><button id='del_{{id}}' {{disabled}}>Delete</button></td></tr>";
 const serverUrl = "http://localhost:24397/";
 function showModal(el) {
     document.getElementById(el).style.display = "block";
@@ -56,13 +56,15 @@ function buildProductList(responseJson, el, supplierId) {
     var tblString = '';
     el.innerHTML = '';
     res.forEach(e => {
-        var supDiv = productListRowTemplate.replace('{{productCode}}', e.productCode);
+        var productDiv = productListRowTemplate.replace('{{productCode}}', e.productCode);
 
-        supDiv = supDiv.replace('{{description}}', e.description);
-        supDiv = supDiv.replace('{{price}}', e.price);
-        supDiv = supDiv.replace('{{id}}', '"' + e.id + '"');
-        
-        tblString += supDiv;
+        productDiv = productDiv.replace('{{description}}', e.description);
+        productDiv = productDiv.replace('{{price}}', e.price);
+        productDiv = productDiv.replace('{{id}}', '"' + e.id + '"');
+        productDiv = productDiv.replace('{{class}}', e.isDeleted ? 'deleted' : 'regular');
+        while (productDiv.indexOf('{{disabled}}') > -1)
+            productDiv = productDiv.replace('{{disabled}}', e.isDeleted ? 'disabled' : '');
+        tblString += productDiv;
     });
 
     el.innerHTML += tblString;
@@ -123,7 +125,7 @@ function addSupplier() {
     } catch (err) {
         errDiv.innerHTML += '<span>' + err.message + '</span>';
     }
-    
+
 }
 
 function addProduct() {
@@ -139,7 +141,7 @@ function addProduct() {
         "supplierId": supplierId
     };
     let jsonString = JSON.stringify(productFormData);
-    
+
     var req = new XMLHttpRequest();
 
     req.open("POST", serverUrl + "Product/AddProductToSupplier");
@@ -153,12 +155,15 @@ function addProduct() {
 }
 
 function updateProductList(product) {
-    var supDiv = productListRowTemplate.replace('{{productCode}}', product.productCode);
+    var productDiv = productListRowTemplate.replace('{{productCode}}', product.productCode);
 
-    supDiv = supDiv.replace('{{description}}', product.description);
-    supDiv = supDiv.replace('{{price}}', product.price);
-    supDiv = supDiv.replace('{{id}}', '"' + product.id + '"');
-    document.getElementById('supplierProductListRows').innerHTML += supDiv;
+    productDiv = productDiv.replace('{{description}}', product.description);
+    productDiv = productDiv.replace('{{price}}', product.price);
+    productDiv = productDiv.replace('{{id}}', '"' + product.id + '"');
+    productDiv = productDiv.replace('{{class}}', product.isDeleted ? 'deleted' : 'regular');
+    while (productDiv.indexOf('{{disabled}}') > -1)
+        productDiv = productDiv.replace('{{disabled}}', product.isDeleted ? 'disabled' : '');
+    document.getElementById('supplierProductListRows').innerHTML += productDiv;
 }
 
 function fetchProductData(productId) {
