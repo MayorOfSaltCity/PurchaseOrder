@@ -71,6 +71,39 @@ namespace PurchaseOrder.DAL
             return product;
         }
 
+        public async Task<List<Product>> GetProductsBySupplierId(Guid supplierId)
+        {
+            var products = new List<Product>();
+            var idParam = GetParameter(Resources.SupplierIdParameterName, supplierId);
+            var reader = GetDataReader(Resources.GetProductsBySupplierId, new List<DbParameter> { idParam });
+
+            if (!reader.HasRows)
+                throw new Exception(Resources.ProductNotFound);
+            while (await reader.ReadAsync())
+            {
+                var product = new Product
+                {
+                    Id = reader.GetGuid(0),
+                    ProductCode = reader.GetString(1),
+                    Description = reader.GetString(2),
+                    Price = reader.GetDecimal(3),
+                    Supplier = new Supplier
+                    {
+                        Name = reader.GetString(4),
+                        SupplierCode = reader.GetString(5),
+                        Id = reader.GetGuid(6),
+                        CreatedDate = reader.GetDateTime(7)
+                    }
+                };
+
+                products.Add(product);
+            }
+
+
+            await reader.CloseAsync();
+            return products;
+        }
+
 
         internal async Task<Guid> AddProductToSupplier(Product product)
         {

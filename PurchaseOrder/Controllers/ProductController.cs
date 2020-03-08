@@ -22,7 +22,8 @@ namespace PurchaseOrder.Controllers
             _logger = logger;
         }
 
-        [HttpGet (Name = "SearchProducts")]
+        [HttpGet]
+        [Route("SearchProducts")]
         public async Task<IEnumerable<Product>> SearchProducts(string searchString, bool isDeleted)
         {
             _logger.LogInformation(Resources.SearchProductsLogMessage, searchString);
@@ -30,7 +31,8 @@ namespace PurchaseOrder.Controllers
             return products;
         }
 
-        [HttpPost (Name = "AddProductToSupplier")]
+        [HttpPost]
+        [Route("AddProductToSupplier")]
         public async Task<Guid> AddProductToSupplier(Product product)
         {
             _logger.LogInformation(Resources.AddProductToSupplierLogMessage, product.ProductCode, product.Supplier.Id);
@@ -38,7 +40,8 @@ namespace PurchaseOrder.Controllers
             return newId;
         }
 
-        [HttpPost (Name = "DeleteProduct")]
+        [HttpPost]
+        [Route("DeleteProduct")]
         public async Task<bool> DeleteProduct(Guid productId)
         {
             _logger.LogInformation(Resources.DeletingProductbyId, productId);
@@ -46,7 +49,8 @@ namespace PurchaseOrder.Controllers
             return deleted;
         }
 
-        [HttpPut(Name = "UpdateProduct")]
+        [HttpPut]
+        [Route("UpdateProduct")]
         public async Task<Guid> UpdateProduct(Product product)
         {
             _logger.LogInformation(Resources.DeletingProductbyId, product.Id);
@@ -54,12 +58,22 @@ namespace PurchaseOrder.Controllers
             return updateProduct;
         }
 
-        [HttpGet(Name = "GetProduct")]
+        [HttpGet]
+        [Route("GetProduct")]
         public async Task<Product> GetProduct(Guid productId)
         {
             _logger.LogInformation(Resources.GetProductByProductIdLogMessage, productId);
             Product product = await _dal.GetProductByProductId(productId);
             return product;
+        }
+
+        [HttpGet]
+        [Route("GetSupplierProducts")]
+        public async Task<IEnumerable<Product>> GetSupplierProducts(Guid supplierId)
+        {
+            _logger.LogInformation(Resources.GetProductByProductIdLogMessage, supplierId);
+            var products = await _dal.GetProductsBySupplierId(supplierId);
+            return products;
         }
     }
 }

@@ -180,6 +180,9 @@
   <data name="GetProductByProductIdLogMessage" xml:space="preserve">
     <value>Fetching Product {0} from database</value>
   </data>
+  <data name="GetProductsBySupplierId" xml:space="preserve">
+    <value>GetProductsBySupplierId</value>
+  </data>
   <data name="GetPurchaseOrderItemsProc" xml:space="preserve">
     <value>GetPurchaseOrderItemsByID</value>
   </data>

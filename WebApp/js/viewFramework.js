@@ -1,6 +1,6 @@
 ﻿
-const supplierTemplate = "<div class='supplierList'><dl><dt>{{name}}</dt><dd>Code:{{supplierCode}}<br/>Created Date:{{createdDate}}<br/></dd></dl><button onclick='showAddProduct();'>Add Product</button><button onclick='showAddProduct();'>View Products</button></div>";
-
+const supplierListTemplate = "<div class='supplierList'><dl onclick='loadSupplierView({{id}});'><dt>{{name}}</dt><dd>Code:{{supplierCode}}<br/>Created Date:{{createdDate}}<br/></dd></dl></div>";
+const productListRowTemplate = "<tr><td>{{productCode}}</td><td>{{description}}</td><td>{{price}}</td></tr>";
 function showModal(el) {
     document.getElementById(el).style.display = "block";
 }
@@ -8,17 +8,60 @@ function showModal(el) {
 function closeModal(el) {
     document.getElementById(el).style.display = "none";
 }
+function loadSupplierView(supplierId) {
+    var req = new XMLHttpRequest();
+    req.open("GET", "http://localhost:24397/Product/GetSupplierProducts?supplierId=" + supplierId);
+    req.onload = function (e) {
+        var el = document.getElementById('supplierProductListRows');
+        buildProductList(req.responseText, el, supplierId);
+        showModal('productModal');
+        document.getElementById('addProductButton').onclick = function () {
+            loadAddProductView(supplierId);
+        };
+        document.getElementById('createPOButton').onclick = function () {
+            loadCreatePurchaseOrderView(supplierId);
+        };
+    };
+    req.send();
+}
+
+function loadAddProductView(supplierId) {
+    showModal('addProductModal');
+}
+
+function loadCreatePurchaseOrderView(supplierId) {
+
+}
 
 function buildSupplierListDisplay(responseJson, el) {
     var res = JSON.parse(responseJson);
     el.innerHTML = '';
     res.forEach(e => {
-        var supDiv = supplierTemplate.replace('{{name}}', e.name);
+        var supDiv = supplierListTemplate.replace('{{name}}', e.name);
 
         supDiv = supDiv.replace('{{supplierCode}}', e.supplierCode);
         supDiv = supDiv.replace('{{createdDate}}', e.createdDate);
+        supDiv = supDiv.replace('{{id}}', '"' + e.id + '"');
         el.innerHTML += supDiv;
     });
+}
+
+function buildProductList(responseJson, el, supplierId) {
+    var res = JSON.parse(responseJson);
+    var tblString = '';
+    el.innerHTML = '';
+    res.forEach(e => {
+        var supDiv = productListRowTemplate.replace('{{productCode}}', e.productCode);
+
+        supDiv = supDiv.replace('{{description}}', e.description);
+        supDiv = supDiv.replace('{{price}}', e.price);
+        supDiv = supDiv.replace('{{id}}', '"' + e.id + '"');
+        
+        tblString += supDiv;
+    });
+
+    el.innerHTML += tblString;
+    console.log(el.innerHTML);
 }
 
 function listSuppliers() {

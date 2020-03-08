@@ -223,6 +223,15 @@ namespace PurchaseOrder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GetProductsBySupplierId.
+        /// </summary>
+        internal static string GetProductsBySupplierId {
+            get {
+                return ResourceManager.GetString("GetProductsBySupplierId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GetPurchaseOrderItemsByID.
         /// </summary>
         internal static string GetPurchaseOrderItemsProc {
