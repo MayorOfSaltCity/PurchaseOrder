@@ -67,17 +67,18 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('addProductModal');">&times;</span><br/>
             <form href="#">
+                <input type="hidden" id="hdnAddProductSupplierId" />
                 <fieldset>
                     <label for="txtProductCode">Product Code:</label>
                     <input type="text" id="txtProductCode" />
                 </fieldset>
                 <fieldset>
-                    <label for="txtDescription">Description:</label>
-                    <input type="text" id="txtDescription" />
+                    <label for="txtProductDescription">Description:</label>
+                    <input type="text" id="txtProductDescription" />
                 </fieldset>
                 <fieldset>
-                    <label for="txtPrice">Price:</label>
-                    <input type="text" id="txtPrice" />
+                    <label for="txtProductPrice">Price:</label>
+                    <input type="text" id="txtProductPrice" />
                 </fieldset>
                 <button id="addProductButton" onclick="addProduct()">Add Product</button>
             </form>

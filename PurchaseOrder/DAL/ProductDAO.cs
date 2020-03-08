@@ -105,7 +105,7 @@ namespace PurchaseOrder.DAL
         }
 
 
-        internal async Task<Guid> AddProductToSupplier(Product product)
+        internal async Task<Guid> AddProductToSupplier(AddProductToSupplierModel product)
         {
             var testCodeParam = GetParameter(Resources.ProductCodeParameterName, product.ProductCode);
             var fetchAllParam = GetParameter(Resources.FetchAllParameterName, true);
@@ -120,7 +120,7 @@ namespace PurchaseOrder.DAL
             await productReader.CloseAsync();
             var descriptionParameter = GetParameter(Resources.ProductDescriptionParameterName, product.Description);
             var productCodeParameter = GetParameter(Resources.ProductCodeParameterName, product.ProductCode);
-            var supplierIdParameter = GetParameter(Resources.SupplierIdParameterName, product.Supplier.Id);
+            var supplierIdParameter = GetParameter(Resources.SupplierIdParameterName, product.SupplierId);
             var priceParameter = GetParameter(Resources.ProductPriceParameterName, product.Price);
             var reader = GetDataReader(Resources.AddProductToSupplierProc, new List<DbParameter> { productCodeParameter, descriptionParameter, priceParameter, supplierIdParameter });
 

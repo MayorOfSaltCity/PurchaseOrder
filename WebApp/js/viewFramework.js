@@ -26,6 +26,10 @@ function loadSupplierView(supplierId) {
 }
 
 function loadAddProductView(supplierId) {
+    document.getElementById('hdnAddProductSupplierId').value = supplierId;
+    document.getElementById('txtProductName').value = '';
+    document.getElementById('txtProductDescription').value = '';
+    document.getElementById('txtProductPrice').value = '';
     showModal('addProductModal');
 }
 
@@ -119,6 +123,13 @@ function addSupplier() {
         errDiv.innerHTML += '<span>' + err.message + '</span>';
     }
     
+}
+
+function addProduct() {
+    let supplierId = document.getElementById('hdnProductSupplierId').value;
+    let productCode = document.getElementById('txtProductCode').value;
+    let productDescription = document.getElementById('txtProductDescription').value;
+    let productPrice = document.getElementById('txtProductPrice').value;
 }
 
 function fetchSupplier(supplierCode) {

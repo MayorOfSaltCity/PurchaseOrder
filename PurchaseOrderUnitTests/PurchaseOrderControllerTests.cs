@@ -41,12 +41,12 @@ namespace PurchaseOrderUnitTests
             Assert.IsTrue(!string.IsNullOrEmpty(supplier.Name), "Supplier has no name");
             Assert.IsTrue(!string.IsNullOrEmpty(supplier.SupplierCode), "Supplier has no supplier code");
 
-            var product = new Product
+            var product = new AddProductToSupplierModel
             {
                 Description = "Test product",
                 Price = 59.99M,
                 ProductCode = $"TEST-PRODUCT-CODE-{c}",
-                Supplier = supplier
+                SupplierId = supplier.Id
             };
 
             Guid productId = productController.AddProductToSupplier(product).Result;
@@ -75,12 +75,12 @@ namespace PurchaseOrderUnitTests
             Assert.IsTrue(!string.IsNullOrEmpty(supplier.Name), "Supplier has no name");
             Assert.IsTrue(!string.IsNullOrEmpty(supplier.SupplierCode), "Supplier has no supplier code");
 
-            var product = new Product
+            var product = new AddProductToSupplierModel
             {
                 Description = "Test product",
                 Price = 59.99M,
                 ProductCode = $"TEST-PRODUCT-CODE-{c}",
-                Supplier = supplier
+                SupplierId = supplier.Id
             };
 
             Guid productId = productController.AddProductToSupplier(product).Result;
@@ -112,12 +112,12 @@ namespace PurchaseOrderUnitTests
             Assert.IsTrue(!string.IsNullOrEmpty(supplier.Name), "Supplier has no name");
             Assert.IsTrue(!string.IsNullOrEmpty(supplier.SupplierCode), "Supplier has no supplier code");
 
-            var product = new Product
+            var product = new AddProductToSupplierModel
             {
                 Description = "Test product",
                 Price = 59.99M,
                 ProductCode = $"TEST-PRODUCT-CODE-{c}",
-                Supplier = supplier
+                SupplierId  = supplier.Id
             };
 
             Guid productId = productController.AddProductToSupplier(product).Result;

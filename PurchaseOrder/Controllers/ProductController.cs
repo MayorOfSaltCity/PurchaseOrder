@@ -33,9 +33,9 @@ namespace PurchaseOrder.Controllers
 
         [HttpPost]
         [Route("AddProductToSupplier")]
-        public async Task<Guid> AddProductToSupplier(Product product)
+        public async Task<Guid> AddProductToSupplier(AddProductToSupplierModel product)
         {
-            _logger.LogInformation(Resources.AddProductToSupplierLogMessage, product.ProductCode, product.Supplier.Id);
+            _logger.LogInformation(Resources.AddProductToSupplierLogMessage, product.ProductCode, product.SupplierId);
             Guid newId = await _dal.AddProductToSupplier(product);
             return newId;
         }
