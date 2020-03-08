@@ -1,6 +1,6 @@
 ﻿
 const supplierListTemplate = "<div class='supplierList'><dl onclick='loadSupplierView({{id}});'><dt>{{name}}</dt><dd>Code:{{supplierCode}}<br/>Created Date:{{createdDate}}<br/></dd></dl></div>";
-const productListRowTemplate = "<tr id='{{id}}' class='{{class}}'><td>{{productCode}}</td><td>{{description}}</td><td>{{price}}</td><td><button id='update_{{id}}' {{disabled}}>Update</button></td><td><button id='del_{{id}}' {{disabled}}>Delete</button></td></tr>";
+const productListRowTemplate = "<tr id='{{id}}' class='{{class}}'><td>{{productCode}}</td><td>{{description}}</td><td>{{price}}</td><td><button id='update_{{id}}' {{disabled}} onclick=loadUpdateProductView({{id}})>Update</button></td><td><button id='del_{{id}}' {{disabled}}  onclick=loadDeleteProductView({{id}})>Delete</button></td></tr>";
 const serverUrl = "http://localhost:24397/";
 function showModal(el) {
     document.getElementById(el).style.display = "block";
@@ -34,6 +34,46 @@ function loadAddProductView(supplierId) {
     showModal('addProductModal');
 }
 
+function loadUpdateProductView(productId) {
+    var req = new XMLHttpRequest();
+    productId = sanitizeId(productId);
+    req.open("GET", serverUrl + "Product/GetProduct?productId=" + productId);
+    req.onload = function (e) {
+        var product = JSON.parse(req.responseText);
+        document.getElementById('txtUpdateProductDescription').value = product.description;
+        document.getElementById('txtUpdateProductPrice').value = product.price;
+        document.getElementById('hdnUpdateProductId').value = product.id;
+        showModal('updateProductModal');
+    };
+
+    req.send();
+}
+
+function updateProduct() {
+    let productId = document.getElementById('hdnUpdateProductId').value;
+    let productDescription = document.getElementById('txtUpdateProductDescription').value;
+    let productPrice = document.getElementById('txtUpdateProductPrice').value;
+
+    let productFormData = {
+        "description": productDescription,
+        "price": productPrice,
+        "productId": productId
+    };
+
+    let jsonString = JSON.stringify(productFormData);
+
+    var req = new XMLHttpRequest();
+
+    req.open("PUT", serverUrl + "Product/UpdateProduct");
+    req.onload = function (e) {
+        closeModal('updateProductModal');
+    };
+
+    req.setRequestHeader('CONTENT-TYPE', 'application/json');
+    req.setRequestHeader('Accept', '*/*');
+    req.send(jsonString);
+}
+
 function loadCreatePurchaseOrderView(supplierId) {
 
 }
@@ -56,15 +96,14 @@ function buildProductList(responseJson, el, supplierId) {
     var tblString = '';
     el.innerHTML = '';
     res.forEach(e => {
-        var productDiv = productListRowTemplate.replace('{{productCode}}', e.productCode);
+        var productRow = productListRowTemplate.replace('{{productCode}}', e.productCode);
 
-        productDiv = productDiv.replace('{{description}}', e.description);
-        productDiv = productDiv.replace('{{price}}', e.price);
-        productDiv = productDiv.replace('{{id}}', '"' + e.id + '"');
-        productDiv = productDiv.replace('{{class}}', e.isDeleted ? 'deleted' : 'regular');
-        while (productDiv.indexOf('{{disabled}}') > -1)
-            productDiv = productDiv.replace('{{disabled}}', e.isDeleted ? 'disabled' : '');
-        tblString += productDiv;
+        productRow = replaceAll(productRow, '{{description}}', e.description);
+        productRow = replaceAll(productRow, '{{price}}', e.price);
+        productRow = replaceAll(productRow, '{{id}}', '"' + e.id + '"');
+        productRow = replaceAll(productRow, '{{class}}', e.isDeleted ? 'deleted' : 'regular');
+        productRow = replaceAll(productRow, '{{disabled}}', e.isDeleted ? 'disabled' : '');
+        tblString += productRow;
     });
 
     el.innerHTML += tblString;
@@ -153,25 +192,35 @@ function addProduct() {
     req.setRequestHeader('Accept', '*/*');
     req.send(jsonString);
 }
+function replaceAll(s, m, v) {
+    while (s.indexOf(m) > -1) {
+        s = s.replace(m, v);
+    }
 
-function updateProductList(product) {
-    var productDiv = productListRowTemplate.replace('{{productCode}}', product.productCode);
-
-    productDiv = productDiv.replace('{{description}}', product.description);
-    productDiv = productDiv.replace('{{price}}', product.price);
-    productDiv = productDiv.replace('{{id}}', '"' + product.id + '"');
-    productDiv = productDiv.replace('{{class}}', product.isDeleted ? 'deleted' : 'regular');
-    while (productDiv.indexOf('{{disabled}}') > -1)
-        productDiv = productDiv.replace('{{disabled}}', product.isDeleted ? 'disabled' : '');
-    document.getElementById('supplierProductListRows').innerHTML += productDiv;
+    return s;
 }
+function updateProductList(product) {
+    var productRow = productListRowTemplate.replace('{{productCode}}', product.productCode);
 
+    productRow = replaceAll(productRow, '{{description}}', product.description);
+    productRow = replaceAll(productRow, '{{price}}', product.price);
+    productRow = replaceAll(productRow, '{{id}}', '"' + product.id + '"');
+    productRow = replaceAll(productRow, '{{class}}', product.isDeleted ? 'deleted' : 'regular');
+    productRow = replaceAll(productRow, '{{disabled}}', product.isDeleted ? 'disabled' : '');
+    document.getElementById('supplierProductListRows').innerHTML += productRow;
+}
+function sanitizeId(id) {
+    let sId = id;
+    while (sId.indexOf('"') > -1) {
+        sId = sId.replace('"', '');
+    }
+
+    return sId;
+}
 function fetchProductData(productId) {
     var req = new XMLHttpRequest();
     // work around to remove quotes that are added by JS
-    while (productId.indexOf('"') > -1) {
-        productId = productId.replace('"', '');
-    }
+    productId = sanitizeId(productId);
 
     req.open("GET", serverUrl + "Product/GetProduct?productId=" + productId);
     req.onload = function (e) {

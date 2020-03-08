@@ -8,7 +8,7 @@
         Purchase Order Test App
     </header>
 
-    <section id="suppliers"style="overflow: auto; height:95%">
+    <section id="suppliers" style="overflow: auto; height:95%">
         <nav><button onclick="showModal('addSupplierModal')">Add Supplier</button></nav>
         <section id="supplierList" style="overflow: auto; height:100%">
         </section>
@@ -65,7 +65,7 @@
     </div>
     <div id="addProductModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('addProductModal');">&times;</span><br/>
+            <span class="close" onclick="closeModal('addProductModal');">&times;</span><br />
             <form href="#">
                 <input type="hidden" id="hdnAddProductSupplierId" />
                 <fieldset>
@@ -81,6 +81,23 @@
                     <input type="text" id="txtProductPrice" />
                 </fieldset>
                 <button id="addProductButton" onclick="addProduct()">Add Product</button>
+            </form>
+        </div>
+    </div>
+    <div id="updateProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('updateProductModal');">&times;</span><br />
+            <form href="#">
+                <input id="hdnUpdateProductId" type="hidden" />
+                <fieldset>
+                    <label for="txtUpdateProductDescription">Description:</label>
+                    <input type="text" id="txtUpdateProductDescription" />
+                </fieldset>
+                <fieldset>
+                    <label for="txtUpdateProductPrice">Price:</label>
+                    <input type="text" id="txtUpdateProductPrice" />
+                </fieldset>
+                <button id="updateProductButton" onclick="updateProduct()">Update</button>
             </form>
         </div>
     </div>

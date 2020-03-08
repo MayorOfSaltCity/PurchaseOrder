@@ -28,7 +28,6 @@ GO
 CREATE PROCEDURE UpdateProductByProductID 
 	-- Add the parameters for the stored procedure here
 	@Id uniqueidentifier,
-	@ProductCode nchar(64),
 	@Description nvarchar(256),
 	@Price decimal (18,4)
 AS
@@ -44,7 +43,8 @@ BEGIN
 	WHERE [ID] = @Id
 	DECLARE @newProductID uniqueidentifier = NEWID()
 	DECLARE @SupplierID uniqueidentifier 
-	SELECT @SupplierID = SupplierId FROM Product WHERE Id = @Id
+	DECLARE @ProductCode nchar(64) 
+	SELECT @SupplierID = SupplierId, @ProductCode = [ProductCode] FROM Product WHERE Id = @Id
 
 	INSERT INTO Product ([ID],[ProductCode],[Description], [Price], [CreatedDate], SupplierId)
 	VALUES (@newProductID, @ProductCode, @Description, @Price, GetDate(), @SupplierID)

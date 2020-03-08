@@ -85,8 +85,13 @@ namespace PurchaseOrderUnitTests
             var product = products.FirstOrDefault();
             
             var newPrice = product.Price * 1.2M;
-            product.Price = newPrice;
-            var newId = productController.UpdateProduct(product).Result;
+            var updateModel = new UpdateProductModel
+            {
+                ProductId = product.Id.ToString(),
+                Description = product.Description,
+                Price = newPrice.ToString()
+            };
+            var newId = productController.UpdateProduct(updateModel).Result;
             var updatedProduct = productController.GetProduct(newId).Result;
             Assert.AreEqual(updatedProduct.Price, newPrice, "Product failed to update");
         }

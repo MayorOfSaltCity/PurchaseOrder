@@ -143,23 +143,22 @@ namespace PurchaseOrder.DAL
             return result == 0;
         }
 
-        internal async Task<Guid> UpdateProduct(Product product)
+        internal async Task<Guid> UpdateProduct(UpdateProductModel product)
         {
-            var tIdParam = GetParameter(Resources.ProductIdParameterName, product.Id);
+            var tIdParam = GetParameter(Resources.ProductIdParameterName, product.ProductId);
             var productReader = GetDataReader(Resources.GetProductByIdProc, new List<DbParameter> { tIdParam });
 
             if (!productReader.HasRows)
             {
                 await productReader.CloseAsync();
-                throw new Exception(string.Format(Resources.ProductDoesNotExistsErrorMessage, product.ProductCode));
+                throw new Exception(string.Format(Resources.ProductDoesNotExistsErrorMessage, product.ProductId));
             }
 
             await productReader.CloseAsync();
-            var idParam = GetParameter(Resources.IdParameter, product.Id);
+            var idParam = GetParameter(Resources.IdParameter, product.ProductId);
             var descriptionParameter = GetParameter(Resources.ProductDescriptionParameterName, product.Description);
-            var productCodeParameter = GetParameter(Resources.ProductCodeParameterName, product.ProductCode);
             var priceParameter = GetParameter(Resources.ProductPriceParameterName, product.Price);
-            var reader = GetDataReader(Resources.UpdateProductProc, new List<DbParameter> { idParam, productCodeParameter, descriptionParameter, priceParameter });
+            var reader = GetDataReader(Resources.UpdateProductProc, new List<DbParameter> { idParam, descriptionParameter, priceParameter });
 
             if (reader.HasRows)
                 await reader.ReadAsync();

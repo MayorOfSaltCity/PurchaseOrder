@@ -527,5 +527,14 @@ namespace PurchaseOrder.Properties {
                 return ResourceManager.GetString("UpdateProductProc", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updateing product [{0}].
+        /// </summary>
+        internal static string UpdatingProductLogMessage {
+            get {
+                return ResourceManager.GetString("UpdatingProductLogMessage", resourceCulture);
+            }
+        }
     }
 }

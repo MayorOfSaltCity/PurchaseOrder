@@ -298,4 +298,7 @@
     <value>UpdateProductByProductID</value>
     <comment>the stored proc used to update products</comment>
   </data>
+  <data name="UpdatingProductLogMessage" xml:space="preserve">
+    <value>Updateing product [{0}]</value>
+  </data>
 </root>

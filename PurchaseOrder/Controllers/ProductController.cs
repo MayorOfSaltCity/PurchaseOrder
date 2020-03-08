@@ -51,9 +51,9 @@ namespace PurchaseOrder.Controllers
 
         [HttpPut]
         [Route("UpdateProduct")]
-        public async Task<Guid> UpdateProduct(Product product)
+        public async Task<Guid> UpdateProduct(UpdateProductModel product)
         {
-            _logger.LogInformation(Resources.DeletingProductbyId, product.Id);
+            _logger.LogInformation(Resources.UpdatingProductLogMessage, product.ProductId);
             Guid updateProduct = await _dal.UpdateProduct(product);
             return updateProduct;
         }
