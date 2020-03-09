@@ -47,6 +47,7 @@ namespace PurchaseOrder.Controllers
         {
             _logger.LogInformation("Fetching purchase order [{0}]", purchaseOrderId);
             var po = await _dal.GetPurchaseOrderById(purchaseOrderId);
+            po.SubTotal = po.Products.Sum(p => (p.Price * Convert.ToDecimal(p.Quantity)));
             return po;
         }
 

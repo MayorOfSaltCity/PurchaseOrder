@@ -1,6 +1,7 @@
 ﻿
 const supplierListTemplate = "<div class='supplierList'><dl onclick='loadSupplierView({{id}});'><dt>{{name}}</dt><dd>Code:{{supplierCode}}<br/>Created Date:{{createdDate}}<br/></dd></dl></div>";
 const productListRowTemplate = "<tr id='{{id}}' class='{{class}}'><td>{{productCode}}</td><td>{{description}}</td><td>{{price}}</td><td><button id='update_{{id}}' {{disabled}} onclick=loadUpdateProductView({{id}})>Update</button></td><td><button id='del_{{id}}' {{disabled}}  onclick=loadDeleteProductView({{id}})>Delete</button></td></tr>";
+const purchaseOrderRowTemplate = "<tr id='{{id}}' class='{{class}}'><td>{{productCode}}</td><td>{{description}}</td><td>{{price}}</td><td>{{quantity}}</td><td><button id='update_{{id}}' {{disabled}} onclick=loadUpdateProductView({{id}})>Update</button></td><td><button id='del_{{id}}' {{disabled}}  onclick=loadDeleteProductView({{id}})>Delete</button></td></tr>";
 const serverUrl = "http://localhost:24397/";
 const currentState = {
     supplierId: '',
@@ -87,10 +88,12 @@ function loadCreatePurchaseOrderView(supplierId) {
 }
 
 function createPurchaseOrder() {
+    document.getElementById('createPurchaseOrderButton').disabled = true;
     let req = new XMLHttpRequest();
     req.open("POST", serverUrl + "PurchaseOrder/CreatePurchaseOrder?supplierId=" + currentState.supplierId);
     req.onload = function (e) {
-        
+        var purchaseOrderId = sanitizeId(req.responseText);
+        currentState.purchaseOrderId = purchaseOrderId;
         closeModal('createPurchaseOrderModal');
         document.getElementById('createPurchaseOrderButton').disabled = false;
         loadEditPurchaseOrderView();
@@ -102,6 +105,24 @@ function createPurchaseOrder() {
 function loadEditPurchaseOrderView() {
     let req = new XMLHttpRequest();
 
+    req.open("GET", serverUrl + "PurchaseOrder/GetPurchaseOrder?purchaseOrderId=" + currentState.purchaseOrderId);
+    req.onload = function (e) {
+        let po = JSON.parse(req.responseText);
+        let el = document.getElementById('purchaseOrderProductListRows');
+        let noEl = document.getElementById('lblPONumber');
+        noEl.value = po.number;
+        el.innerHTML = '';
+        po.products.forEach(item => {
+            let row = replaceAll(purchaseOrderRowTemplate, '{{productCode}}', el.productCode);
+            row = replaceAll(row, '{{description}}', el.description);
+            row = replaceAll(row, '{{price}}', el.price);
+            row = replaceAll(row, '{{quantity}}', el.quantity);
+            el.innerHTML += row;
+        });
+        showModal('editPurchaseOrderModal');
+    };
+
+    req.send();
 }
 
 function buildSupplierListDisplay(responseJson, el) {

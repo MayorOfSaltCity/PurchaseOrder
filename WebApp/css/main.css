@@ -47,3 +47,23 @@
 .regular {
     text-decoration: none;
 }
+
+div {
+    border-radius:4px;
+    padding:2px;
+}
+
+button {
+    border-radius:8px;
+}
+
+button .main {
+    background-color: royalblue;
+    border-color:aliceblue;
+    border-width:0.3px;
+}
+
+button .cancel {
+    background-color: red;
+    border-color:maroon;
+}

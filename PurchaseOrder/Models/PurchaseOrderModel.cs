@@ -14,6 +14,8 @@ namespace PurchaseOrder.Models
 
         public DateTime? FinalizedDate { get; set; }
 
+        public decimal SubTotal { get; set; }
+
     }
     public class PurchaseOrderProduct : Product
     {
