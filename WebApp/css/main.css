@@ -1,6 +1,18 @@
 ﻿body {
 }
-
+header {
+    background-color:azure;
+    height:100px;
+    border-radius:10px;
+    border-color:aquamarine;
+    border-style:double;
+    margin-10px;
+}
+h1 {
+    text-align:center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:50px;
+}
 .modal {
     display: none;
     position: fixed;
@@ -56,12 +68,6 @@
     text-decoration: none;
 }
 
-div {
-    border-radius:4px;
-    background-color:darkgray;
-    margin: 10px;
-    padding:3px;
-}
 
 dl {
     background-color:lightgray;
@@ -69,13 +75,20 @@ dl {
     border-radius:10px;
 }
 dt {
+    border-radius:2px;
+    
     background-color:gray;
-    color: white;
+    color: lightgray;
     cursor:pointer;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size:16px;
+    font-weight:bold;
 }
 
 dd {
-    cursor:pointer;
+    cursor: pointer;
+    font-size: 12px;
+    
 }
 
 button {
@@ -104,9 +117,13 @@ button {
 fieldset {
     background-color: lightgray;
     display:inline-block;
+    border:none;
+    width:80%;
 }
 
 input {
-    border-radius:2px;
+    border-radius:4px;
+    height:25px;
     border:none;
+    float:right;
 }

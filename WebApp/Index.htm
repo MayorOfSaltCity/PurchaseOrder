@@ -22,7 +22,7 @@
         </section>
     </div>
     <div id="addSupplierModal" class="modal">
-        <section id="addSupplier" class="modal-content">
+        <section id="addSupplier" class="modal-content-mini">
             <span class="close" onclick="closeModal('addSupplierModal');">&times;</span>
             <br />
             <form>
@@ -35,7 +35,7 @@
                     <input type="text" id="txtSupplierCode" />
                 </fieldset>
                 <div class="error" id="addSupplierError"></div>
-                <button onclick="addSupplier()">Add</button>
+                <button onclick="addSupplier()" class="main">Add</button>
             </form>
         </section>
     </div>
@@ -55,16 +55,16 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td><button id="addProductButton">Add Product</button></td>
+                        <td><button id="addProductButton" class="main">Add Product</button></td>
                         <td>&nbsp;</td>
-                        <td><button id="createPOButton">Create PO</button></td>
+                        <td><button id="createPOButton" class="main">Create PO</button></td>
                     </tr>
                 </tfoot>
             </table>
         </div>
     </div>
     <div id="addProductModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content-mini">
             <span class="close" onclick="closeModal('addProductModal');">&times;</span><br />
             <form href="#">
                 <fieldset>
@@ -84,7 +84,7 @@
         </div>
     </div>
     <div id="updateProductModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content-mini">
             <span class="close" onclick="closeModal('updateProductModal');">&times;</span><br />
             <form href="#">
                 <fieldset>
@@ -100,7 +100,7 @@
         </div>
     </div>
     <div id="createPurchaseOrderModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content-mini">
             <span class="close" onclick="closeModal('createPurchaseOrderModal');">&times;</span><br />
             <span>Create a new Purchase Order</span><br />
             <button id="createPurchaseOrderButton" onclick="createPurchaseOrder()" class="main">Yes</button><button class="cancel" onclick="closeModal('createPurchaseOrderModal');">No</button>
@@ -110,7 +110,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('editPurchaseOrderModal');">&times;</span><br />
             <br />
-            <div><h1>Purchase Order: <label id="lblPONumber"/></h1><h2>Products</h2></div>
+            <div><h1>Purchase Order: <label id="lblPONumber" /></h1><h2>Products</h2></div>
             <table>
                 <thead>
                     <tr>
@@ -138,13 +138,16 @@
                     </tr>
                 </tfoot>
             </table>
-            
+
         </div>
     </div>
-
-    <section id="searchSupplier" class="addSupplier">
-        <div><label for="txtProductSearchInput">Search Term: <input id="txtProductSearch" type="text"/>&nbsp;<button id="btnSearchProducts" onclick="SearchProductsByNameAndSupplier()">Search</button></label></div>
-    </section>
+    <div class="modal">
+        <div class="modal-content">
+            <section id="searchSupplier" class="addSupplier">
+                <div><label for="txtProductSearchInput">Search Term: <input id="txtProductSearch" type="text" />&nbsp;<button id="btnSearchProducts" onclick="SearchProductsByNameAndSupplier()">Search</button></label></div>
+            </section>
+        </div>
+    </div>
     <script src="/js/viewFramework.js" type="text/javascript"></script>
 
 </body>
