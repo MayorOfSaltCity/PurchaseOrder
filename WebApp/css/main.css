@@ -23,7 +23,15 @@
     height: 80%;
     overflow-x: auto;
 }
-
+.modal-content-mini {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 40%;
+    height: 40%;
+    overflow-x: auto;
+}
 .close {
     color: #aaaaaa;
     float: right;
