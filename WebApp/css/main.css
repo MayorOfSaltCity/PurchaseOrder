@@ -50,20 +50,55 @@
 
 div {
     border-radius:4px;
-    padding:2px;
+    background-color:darkgray;
+    margin: 10px;
+    padding:3px;
+}
+
+dl {
+    background-color:lightgray;
+    margin: 14px, 15px;
+    border-radius:10px;
+}
+dt {
+    background-color:gray;
+    color: white;
+    cursor:pointer;
+}
+
+dd {
+    cursor:pointer;
 }
 
 button {
-    border-radius:8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
 }
 
-button .main {
-    background-color: royalblue;
-    border-color:aliceblue;
-    border-width:0.3px;
-}
+.main {
+        background-color: royalblue;
+        border-color: aliceblue;
+        color: white;
+    }
 
-button .cancel {
+.cancel {
     background-color: red;
     border-color:maroon;
+    color:white;
+}
+
+fieldset {
+    background-color: lightgray;
+    display:inline-block;
+}
+
+input {
+    border-radius:2px;
+    border:none;
 }

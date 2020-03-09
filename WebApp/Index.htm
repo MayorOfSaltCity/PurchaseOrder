@@ -79,7 +79,7 @@
                     <label for="txtProductPrice">Price:</label>
                     <input type="text" id="txtProductPrice" />
                 </fieldset>
-                <button id="addProductButton" onclick="addProduct()">Add Product</button>
+                <button id="addProductButton" onclick="addProduct()" class="main">Add Product</button>
             </form>
         </div>
     </div>
@@ -103,7 +103,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal('createPurchaseOrderModal');">&times;</span><br />
             <span>Create a new Purchase Order</span><br />
-            <button id="createPurchaseOrderButton" onclick="createPurchaseOrder()">Yes</button><button onclick="closeModal('createPurchaseOrderModal');">No</button>
+            <button id="createPurchaseOrderButton" onclick="createPurchaseOrder()" class="main">Yes</button><button class="cancel" onclick="closeModal('createPurchaseOrderModal');">No</button>
         </div>
     </div>
     <div id="editPurchaseOrderModal" class="modal">
